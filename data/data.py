@@ -1,6 +1,5 @@
 import json
 import mysql.connector
-from mysql.connector import pooling
 
 connectionpool = mysql.connector.pooling.MySQLConnectionPool(
   pool_name = "mysqlpool",
@@ -19,7 +18,7 @@ cursor.execute("CREATE TABLE IF NOT EXISTS attractions(id BIGINT PRIMARY KEY AUT
 cursor.close()
 connection.close()
 
-with open("C:/Users/WinX/Desktop/WeHelp/(C)second-stage/taipei-day-trip/data/taipei-attractions.json", "r", encoding="utf-8") as data:
+with open("C:/Users/WinX/Desktop/WeHelp/second-stage/taipei-day-trip/data/taipei-attractions.json", "r", encoding="utf-8") as data:
     data = json.load(data)
     results = data["result"]["results"]
 n=1
