@@ -2,7 +2,7 @@ from flask import *
 from flask_restful import Api
 import sys
 sys.path.append("modules")
-from modules.attractions import Attractions
+from modules.attractions import Attractions,Search_Attractions
 
 app=Flask(
     __name__,
@@ -17,6 +17,7 @@ api=Api(app)
 app.secret_key="123789secret"
 
 api.add_resource(Attractions, "/api/attractions")
+api.add_resource(Search_Attractions, "/api/attraction/<attractionId>" )
 
 # Pages
 @app.route("/")
