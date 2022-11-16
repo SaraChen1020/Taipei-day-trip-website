@@ -2,9 +2,9 @@ from flask import *
 from flask_restful import Api
 import sys
 sys.path.append("modules")
-from modules.attractions import Attractions,Search_Attractions
+from modules.attractions import Attractions,Search_Attractions,Categories
 
-app=Flask(
+app = Flask(
     __name__,
     static_folder="static",
     static_url_path="/"
@@ -12,12 +12,14 @@ app=Flask(
 app.config["JSON_AS_ASCII"]=False
 app.config["TEMPLATES_AUTO_RELOAD"]=True
 app.config.update(RESTFUL_JSON=dict(ensure_ascii=False))
+app.config["JSON_SORT_KEYS"]=False
 
 api=Api(app)
-app.secret_key="123789secret"
+app.secret_key = "123789secret"
 
 api.add_resource(Attractions, "/api/attractions")
 api.add_resource(Search_Attractions, "/api/attraction/<attractionId>" )
+api.add_resource(Categories, "/api/categories")
 
 # Pages
 @app.route("/")
@@ -33,4 +35,4 @@ def booking():
 def thankyou():
 	return render_template("thankyou.html")
 
-app.run(port=3000, debug=True)
+app.run(port = 3000, debug=True)

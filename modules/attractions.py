@@ -159,3 +159,32 @@ class Search_Attractions(Resource):
             cursor.close()
             connection.close()
                 
+# 取得景點分類名稱列表
+class Categories(Resource):
+    def get(self):
+        try:
+            connection = db_Connect.dbConnect.get_connection()
+            cursor = connection.cursor()
+            cursor.execute("SELECT distinct(category) FROM attractions")
+            results=cursor.fetchall()
+
+            data = []
+            for result in results:
+                data.append(result[0])
+            
+            response = jsonify({
+                "data": data
+            })
+            response.status_code = "200"
+            response.headers["Content-Type"] = "application/json"
+            response.headers["Access-Control-Allow-Origin"] = "*"
+            return response
+        except:
+            response = jsonify({"error": True,"message": "server error"})
+            response.status_code = "500"
+            response.headers["Content-Type"] = "application/json"
+            response.headers["Access-Control-Allow-Origin"] = "*"
+            return response
+        finally:
+            cursor.close()
+            connection.close()
