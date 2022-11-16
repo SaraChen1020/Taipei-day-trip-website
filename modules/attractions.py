@@ -3,14 +3,14 @@ import db_Connect
 from flask import *
 from flask_restful import Resource
 
- # 取得景點列表資料/頁數/關鍵字
+# 取得景點列表資料/頁數/關鍵字
 class Attractions(Resource):
     def get(self):
         try:
             keyword = request.args.get("keyword", "")
             page = int(request.args.get("page", 0))
         except:
-            response = jsonify({"error": True,"message": "type error"})
+            response = jsonify({"error": True, "message": "type error"})
             response.status_code = "500"
             response.headers["Content-Type"] = "application/json"
             response.headers["Access-Control-Allow-Origin"] = "*"
@@ -93,7 +93,7 @@ class Search_Attractions(Resource):
                 response.headers["Access-Control-Allow-Origin"] = "*"
                 return response
             else:
-                response = jsonify({"error": True,"message": "無此景點編號"})
+                response = jsonify({"error": True, "message": "無此景點編號"})
                 response.status_code = "400"
                 response.headers["Content-Type"] = "application/json"
                 response.headers["Access-Control-Allow-Origin"] = "*"
@@ -129,7 +129,7 @@ class Categories(Resource):
             response.headers["Access-Control-Allow-Origin"] = "*"
             return response
         except:
-            response = jsonify({"error": True,"message": "server error"})
+            response = jsonify({"error": True, "message": "server error"})
             response.status_code = "500"
             response.headers["Content-Type"] = "application/json"
             response.headers["Access-Control-Allow-Origin"] = "*"
