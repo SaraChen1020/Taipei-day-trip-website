@@ -3,8 +3,8 @@ import db_Connect
 from flask import *
 from flask_restful import Resource
 
+ # 取得景點列表資料/頁數/關鍵字
 class Attractions(Resource):
-    # 景點列表資料
     def get(self):
         try:
             keyword = request.args.get("keyword", "")
@@ -21,11 +21,11 @@ class Attractions(Resource):
                 connection = db_Connect.dbConnect.get_connection()
                 cursor = connection.cursor()
                 cursor.execute("SELECT COUNT(id) FROM attractions")
-                totalID=cursor.fetchone()
+                totalID = cursor.fetchone()
                 cursor.execute("SELECT * FROM attractions LIMIT %s, 12", [page*12])
-                results=cursor.fetchall()
+                results = cursor.fetchall()
 
-                data=[]
+                data = []
                 for result in results:
                     data_group = {"id": result[0],
                             "name": result[1],
@@ -71,11 +71,11 @@ class Attractions(Resource):
                 connection = db_Connect.dbConnect.get_connection()
                 cursor = connection.cursor()
                 cursor.execute("SELECT COUNT(id) FROM attractions WHERE category = %s OR LOCATE (%s, name)",[keyword, keyword])
-                totalID=cursor.fetchone()
+                totalID = cursor.fetchone()
                 cursor.execute("SELECT * FROM attractions WHERE category = %s OR LOCATE (%s, name) LIMIT %s, 12",[keyword, keyword, page*12])
-                results=cursor.fetchall()
+                results = cursor.fetchall()
 
-                data=[]
+                data = []
                 for result in results:
                     data_group = {"id": result[0],
                             "name": result[1],
@@ -116,6 +116,7 @@ class Attractions(Resource):
                 cursor.close()
                 connection.close()
 
+# 根據景點編號取得景點資料
 class Search_Attractions(Resource):
     def get(self, attractionId):
         try:
