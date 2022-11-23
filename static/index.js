@@ -1,54 +1,78 @@
-window.onload = getData();
+const categories = document.querySelector(".categories");
+const search = document.querySelector(".search");
+const btn = document.querySelector(".btn");
 
-function getData() {
-  fetch("http://35.175.100.203:3000/api/attractions")
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      let result = data.data;
-      for (let i = 0; i < result.length; i++) {
-        //console.log(result[i].name); //每個name
-        //console.log(result[i].mrt); //每個mrt
-        //console.log(result[i].category); //每個category
-        //console.log(result[i].images[0]); //每張圖
-        let picDiv = document.createElement("div");
-        picDiv.className = "pic";
+window.onload = observe(0, "");
 
-        let img = document.createElement("img");
-        img.setAttribute("src", `${result[i].images[0]}`);
+function observe(page, keyword) {
+  const configs = {
+    root: null,
+    rootMargin: "0px",
+    threshold: 0.1,
+  };
 
-        let attractionNameDiv = document.createElement("div");
-        attractionNameDiv.className = "attraction-name";
-        attractionNameDiv.textContent = `${result[i].name}`;
+  const observer = new IntersectionObserver(function (entries) {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        url = `http://35.175.100.203:3000/api/attractions?page=${page}&keyword=${keyword}`;
+        fetch(url)
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (data) {
+            let result = data.data;
+            for (let i = 0; i < result.length; i++) {
+              let picDiv = document.createElement("div");
+              picDiv.className = "pic";
 
-        let picTitleDiv = document.createElement("div");
-        picTitleDiv.className = "pic-title";
+              let img = document.createElement("img");
+              img.setAttribute("src", `${result[i].images[0]}`);
 
-        let mrtDiv = document.createElement("div");
-        mrtDiv.className = "mrt";
-        mrtDiv.textContent = `${result[i].mrt}`;
+              let attractionNameDiv = document.createElement("div");
+              attractionNameDiv.className = "attraction-name";
+              attractionNameDiv.textContent = `${result[i].name}`;
 
-        let categoryDiv = document.createElement("div");
-        categoryDiv.className = "category";
-        categoryDiv.textContent = `${result[i].category}`;
+              let picTitleDiv = document.createElement("div");
+              picTitleDiv.className = "pic-title";
 
-        picTitleDiv.appendChild(mrtDiv);
-        picTitleDiv.appendChild(categoryDiv);
+              let mrtDiv = document.createElement("div");
+              mrtDiv.className = "mrt";
+              mrtDiv.textContent = `${result[i].mrt}`;
 
-        picDiv.appendChild(img);
-        picDiv.appendChild(attractionNameDiv);
-        picDiv.appendChild(picTitleDiv);
+              let categoryDiv = document.createElement("div");
+              categoryDiv.className = "category";
+              categoryDiv.textContent = `${result[i].category}`;
 
-        document.querySelector(".gallery").appendChild(picDiv);
+              picTitleDiv.appendChild(mrtDiv);
+              picTitleDiv.appendChild(categoryDiv);
+
+              picDiv.appendChild(img);
+              picDiv.appendChild(attractionNameDiv);
+              picDiv.appendChild(picTitleDiv);
+
+              document.querySelector(".gallery").appendChild(picDiv);
+            }
+            if (data.nextPage != null) {
+              page = data.nextPage;
+            } else {
+              observer.unobserve(footer);
+            }
+          });
       }
     });
+  }, configs);
+
+  // 指定觀察對象
+  const footer = document.querySelector(".footer");
+  observer.observe(footer);
+
+  // 當點擊查詢時暫停原本的觀察
+  btn.addEventListener("click", function () {
+    observer.unobserve(footer);
+  });
 }
 
 //==========================================================================
-
-const search = document.querySelector(".search");
-const categories = document.querySelector(".categories");
 
 function categoriesList() {
   fetch("http://35.175.100.203:3000/api/categories")
@@ -83,5 +107,14 @@ document.addEventListener(
 );
 
 function value(e) {
-  search.setAttribute("value", e);
+  search.value = e;
+  // search.setAttribute("value", e);
 }
+
+btn.addEventListener("click", function () {
+  let keyword = search.value;
+  document.querySelector(".gallery").innerHTML = "";
+  search.value = "";
+  // search.setAttribute("value", keyword);
+  observe(0, keyword);
+});
