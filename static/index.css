@@ -1,9 +1,8 @@
 body {
   margin: 0px; /*去除網頁邊界*/
-  /* overflow-x: hidden; 隱藏橫向捲軸 */
+  overflow-x: hidden; /*隱藏橫向捲軸*/
   font-family: "Noto Sans TC";
   font-style: normal;
-  box-sizing: border-box;
 }
 
 input {
@@ -221,9 +220,10 @@ input {
 }
 
 .attraction-name {
+  box-sizing: border-box;
   display: flex;
-  width: 250px;
-  height: 20px;
+  width: 270px;
+  height: 40px;
   background-color: rgba(0, 0, 0, 0.6);
   position: absolute;
   left: 0;
@@ -238,7 +238,9 @@ input {
 }
 
 .pic-title {
+  box-sizing: border-box;
   background-color: #ffffff;
+  padding: 10px;
   width: 270px;
   height: 45px;
   display: flex;
@@ -284,4 +286,50 @@ input {
   width: 234px;
   height: 24px;
   margin: 40px;
+}
+
+@media (max-width: 1200px) {
+  .topic {
+    margin-left: 10px;
+  }
+
+  .slogan {
+    margin-left: 10px;
+  }
+  .container {
+    grid-template-columns: 1fr 90% 1fr;
+  }
+
+  .gallery {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .pic,
+  .pic img,
+  .pic-title,
+  .attraction-name {
+    width: 100%;
+  }
+
+  .pic-title div {
+    width: 50%;
+  }
+}
+
+@media (max-width: 600px) {
+  .search {
+    width: 230px;
+  }
+
+  .categories {
+    width: 322px;
+  }
+
+  .categories div {
+    width: 66px;
+  }
+
+  .gallery {
+    grid-template-columns: 1fr;
+  }
 }
