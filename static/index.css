@@ -25,6 +25,15 @@ input {
   width: 1200px;
 }
 
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+  cursor: pointer;
+}
+
 .topic {
   display: flex;
   align-items: center;
@@ -182,6 +191,22 @@ input {
   background: #e8e8e8;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.no-result {
+  display: none;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 8%);
+  padding: 30px;
+  box-sizing: border-box;
+  height: 300px;
+  width: 400px;
+  text-align: center;
+  background-image: url("no-result.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .container {

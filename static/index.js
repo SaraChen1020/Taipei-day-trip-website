@@ -1,9 +1,11 @@
 const categories = document.querySelector(".categories");
 const search = document.querySelector(".search");
-const btn = document.querySelector(".btn");
+const searchBtn = document.querySelector(".search-btn");
+const noResult = document.querySelector(".no-result");
 
 window.onload = observe(0, "");
 
+//觀察者及初始畫面函式
 function observe(page, keyword) {
   const configs = {
     root: null,
@@ -21,36 +23,42 @@ function observe(page, keyword) {
           })
           .then(function (data) {
             let result = data.data;
-            for (let i = 0; i < result.length; i++) {
-              let picDiv = document.createElement("div");
-              picDiv.className = "pic";
 
-              let img = document.createElement("img");
-              img.setAttribute("src", `${result[i].images[0]}`);
+            if (result != "") {
+              noResult.style.display = "none";
+              for (let i = 0; i < result.length; i++) {
+                let picDiv = document.createElement("div");
+                picDiv.className = "pic";
 
-              let attractionNameDiv = document.createElement("div");
-              attractionNameDiv.className = "attraction-name";
-              attractionNameDiv.textContent = `${result[i].name}`;
+                let img = document.createElement("img");
+                img.setAttribute("src", `${result[i].images[0]}`);
 
-              let picTitleDiv = document.createElement("div");
-              picTitleDiv.className = "pic-title";
+                let attractionNameDiv = document.createElement("div");
+                attractionNameDiv.className = "attraction-name";
+                attractionNameDiv.textContent = `${result[i].name}`;
 
-              let mrtDiv = document.createElement("div");
-              mrtDiv.className = "mrt";
-              mrtDiv.textContent = `${result[i].mrt}`;
+                let picTitleDiv = document.createElement("div");
+                picTitleDiv.className = "pic-title";
 
-              let categoryDiv = document.createElement("div");
-              categoryDiv.className = "category";
-              categoryDiv.textContent = `${result[i].category}`;
+                let mrtDiv = document.createElement("div");
+                mrtDiv.className = "mrt";
+                mrtDiv.textContent = `${result[i].mrt}`;
 
-              picTitleDiv.appendChild(mrtDiv);
-              picTitleDiv.appendChild(categoryDiv);
+                let categoryDiv = document.createElement("div");
+                categoryDiv.className = "category";
+                categoryDiv.textContent = `${result[i].category}`;
 
-              picDiv.appendChild(img);
-              picDiv.appendChild(attractionNameDiv);
-              picDiv.appendChild(picTitleDiv);
+                picTitleDiv.appendChild(mrtDiv);
+                picTitleDiv.appendChild(categoryDiv);
 
-              document.querySelector(".gallery").appendChild(picDiv);
+                picDiv.appendChild(img);
+                picDiv.appendChild(attractionNameDiv);
+                picDiv.appendChild(picTitleDiv);
+
+                document.querySelector(".gallery").appendChild(picDiv);
+              }
+            } else {
+              noResult.style.display = "block";
             }
             if (data.nextPage != null) {
               page = data.nextPage;
@@ -61,19 +69,17 @@ function observe(page, keyword) {
       }
     });
   }, configs);
-
   // 指定觀察對象
   const footer = document.querySelector(".footer");
   observer.observe(footer);
 
-  // 當點擊查詢時暫停原本的觀察
-  btn.addEventListener("click", function () {
+  // 當點擊查詢時先暫停原本的觀察
+  searchBtn.addEventListener("click", function () {
     observer.unobserve(footer);
   });
 }
 
-//==========================================================================
-
+// 分類選單載入
 function categoriesList() {
   fetch("http://35.175.100.203:3000/api/categories")
     .then(function (response) {
@@ -91,13 +97,14 @@ function categoriesList() {
       }
     });
 }
-
 categoriesList();
 
+// 點擊時打開分類選單
 search.addEventListener("click", function () {
   categories.style.display = "flex";
 });
 
+// 點擊其他處關閉選單
 document.addEventListener(
   "click",
   function () {
@@ -106,15 +113,15 @@ document.addEventListener(
   true
 );
 
+// 點擊分類文字，接收回傳值並放到搜尋列
 function value(e) {
   search.value = e;
-  // search.setAttribute("value", e);
 }
 
-btn.addEventListener("click", function () {
+// 送出查詢
+searchBtn.addEventListener("click", function () {
   let keyword = search.value;
   document.querySelector(".gallery").innerHTML = "";
   search.value = "";
-  // search.setAttribute("value", keyword);
   observe(0, keyword);
 });
