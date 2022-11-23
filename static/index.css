@@ -1,6 +1,6 @@
 body {
-  margin: 0px; /*去除網頁邊界*/
-  overflow-x: hidden; /*隱藏橫向捲軸*/
+  margin: 0px;
+  overflow-x: hidden;
   font-family: "Noto Sans TC";
   font-style: normal;
 }
