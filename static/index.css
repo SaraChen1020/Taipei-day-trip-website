@@ -69,7 +69,7 @@ input {
   width: 71px;
 }
 
-.space {
+.white-area {
   width: 100%;
   height: 54px;
 }
@@ -318,7 +318,7 @@ input {
 
 @media (max-width: 600px) {
   .search {
-    width: 230px;
+    width: 80%;
   }
 
   .categories {
