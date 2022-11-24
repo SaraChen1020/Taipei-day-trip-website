@@ -4,16 +4,37 @@ const searchBtn = document.querySelector(".search-btn");
 const noResult = document.querySelector(".no-result");
 const footer = document.querySelector(".footer");
 
-window.onload = observe(0, "");
+window.onload = getData(0, "");
 
-//觀察者及初始畫面函式
+//初始畫面
+function getData(page, keyword) {
+  url = `/api/attractions?page=${page}&keyword=${keyword}`;
+  fetch(url)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      noResult.style.display = "none";
+      let result = data.data;
+      if (result != "") {
+        let length = result.length;
+        addDataToDom(result, length);
+      } else {
+        noResult.style.display = "block";
+      }
+      if (data.nextPage != null) {
+        observe(data.nextPage, keyword);
+      }
+    });
+}
+
+//設定觀察者
 function observe(page, keyword) {
   const configs = {
     root: null,
     rootMargin: "0px",
     threshold: 0.1,
   };
-
   const observer = new IntersectionObserver(function (entries) {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
@@ -24,43 +45,9 @@ function observe(page, keyword) {
           })
           .then(function (data) {
             let result = data.data;
+            let length = result.length;
+            addDataToDom(result, length);
 
-            if (result != "") {
-              noResult.style.display = "none";
-              for (let i = 0; i < result.length; i++) {
-                let picDiv = document.createElement("div");
-                picDiv.className = "pic";
-
-                let img = document.createElement("img");
-                img.setAttribute("src", `${result[i].images[0]}`);
-
-                let attractionNameDiv = document.createElement("div");
-                attractionNameDiv.className = "attraction-name";
-                attractionNameDiv.textContent = `${result[i].name}`;
-
-                let picTitleDiv = document.createElement("div");
-                picTitleDiv.className = "pic-title";
-
-                let mrtDiv = document.createElement("div");
-                mrtDiv.className = "mrt";
-                mrtDiv.textContent = `${result[i].mrt}`;
-
-                let categoryDiv = document.createElement("div");
-                categoryDiv.className = "category";
-                categoryDiv.textContent = `${result[i].category}`;
-
-                picTitleDiv.appendChild(mrtDiv);
-                picTitleDiv.appendChild(categoryDiv);
-
-                picDiv.appendChild(img);
-                picDiv.appendChild(attractionNameDiv);
-                picDiv.appendChild(picTitleDiv);
-
-                document.querySelector(".gallery").appendChild(picDiv);
-              }
-            } else {
-              noResult.style.display = "block";
-            }
             if (data.nextPage != null) {
               page = data.nextPage;
             } else {
@@ -71,12 +58,47 @@ function observe(page, keyword) {
     });
   }, configs);
 
-  observer.observe(footer); // 指定觀察對象
+  observer.observe(footer); //指定觀察對象
 
   // 當點擊查詢時先暫停原本的觀察
   searchBtn.addEventListener("click", function () {
     observer.unobserve(footer);
   });
+}
+
+//圖文版面
+function addDataToDom(result, length) {
+  for (let i = 0; i < length; i++) {
+    let picDiv = document.createElement("div");
+    picDiv.className = "pic";
+
+    let img = document.createElement("img");
+    img.setAttribute("src", `${result[i].images[0]}`);
+
+    let attractionNameDiv = document.createElement("div");
+    attractionNameDiv.className = "attraction-name";
+    attractionNameDiv.textContent = `${result[i].name}`;
+
+    let picTitleDiv = document.createElement("div");
+    picTitleDiv.className = "pic-title";
+
+    let mrtDiv = document.createElement("div");
+    mrtDiv.className = "mrt";
+    mrtDiv.textContent = `${result[i].mrt}`;
+
+    let categoryDiv = document.createElement("div");
+    categoryDiv.className = "category";
+    categoryDiv.textContent = `${result[i].category}`;
+
+    picTitleDiv.appendChild(mrtDiv);
+    picTitleDiv.appendChild(categoryDiv);
+
+    picDiv.appendChild(img);
+    picDiv.appendChild(attractionNameDiv);
+    picDiv.appendChild(picTitleDiv);
+
+    document.querySelector(".gallery").appendChild(picDiv);
+  }
 }
 
 // 分類選單載入
@@ -123,5 +145,5 @@ searchBtn.addEventListener("click", function () {
   let keyword = search.value;
   document.querySelector(".gallery").innerHTML = "";
   search.value = "";
-  observe(0, keyword);
+  getData(0, keyword);
 });
