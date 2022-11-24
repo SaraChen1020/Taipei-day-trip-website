@@ -2,6 +2,7 @@ const categories = document.querySelector(".categories");
 const search = document.querySelector(".search");
 const searchBtn = document.querySelector(".search-btn");
 const noResult = document.querySelector(".no-result");
+const footer = document.querySelector(".footer");
 
 window.onload = observe(0, "");
 
@@ -16,7 +17,7 @@ function observe(page, keyword) {
   const observer = new IntersectionObserver(function (entries) {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        url = `http://35.175.100.203:3000/api/attractions?page=${page}&keyword=${keyword}`;
+        url = `/api/attractions?page=${page}&keyword=${keyword}`;
         fetch(url)
           .then(function (response) {
             return response.json();
@@ -69,9 +70,8 @@ function observe(page, keyword) {
       }
     });
   }, configs);
-  // 指定觀察對象
-  const footer = document.querySelector(".footer");
-  observer.observe(footer);
+
+  observer.observe(footer); // 指定觀察對象
 
   // 當點擊查詢時先暫停原本的觀察
   searchBtn.addEventListener("click", function () {
@@ -81,7 +81,7 @@ function observe(page, keyword) {
 
 // 分類選單載入
 function categoriesList() {
-  fetch("http://35.175.100.203:3000/api/categories")
+  fetch("/api/categories")
     .then(function (response) {
       return response.json();
     })
