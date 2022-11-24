@@ -3,11 +3,13 @@ const search = document.querySelector(".search");
 const searchBtn = document.querySelector(".search-btn");
 const noResult = document.querySelector(".no-result");
 const footer = document.querySelector(".footer");
+let pageLoading = false;
 
 window.onload = getData(0, "");
 
 //初始畫面
 function getData(page, keyword) {
+  pageLoading = true;
   url = `/api/attractions?page=${page}&keyword=${keyword}`;
   fetch(url)
     .then(function (response) {
@@ -25,6 +27,7 @@ function getData(page, keyword) {
       if (data.nextPage != null) {
         observe(data.nextPage, keyword);
       }
+      pageLoading = false;
     });
 }
 
@@ -37,7 +40,8 @@ function observe(page, keyword) {
   };
   const observer = new IntersectionObserver(function (entries) {
     entries.forEach((entry) => {
-      if (entry.isIntersecting) {
+      if (entry.isIntersecting && !pageLoading) {
+        pageLoading = true;
         url = `/api/attractions?page=${page}&keyword=${keyword}`;
         fetch(url)
           .then(function (response) {
@@ -53,6 +57,7 @@ function observe(page, keyword) {
             } else {
               observer.unobserve(footer);
             }
+            pageLoading = false;
           });
       }
     });
