@@ -29,11 +29,6 @@ a {
   text-decoration: none;
 }
 
-a:hover {
-  text-decoration: none;
-  cursor: pointer;
-}
-
 .topic {
   display: flex;
   align-items: center;
@@ -87,7 +82,7 @@ a:hover {
   display: flex;
   justify-content: center;
   height: 320px;
-  background-image: url("welcome.png");
+  background-image: url("images/welcome.png");
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -151,7 +146,7 @@ a:hover {
   height: 46px;
   border-radius: 0 5px 5px 0;
   background-color: #448899;
-  background-image: url("icon_search.png");
+  background-image: url("images/icon_search.png");
   background-repeat: no-repeat;
   background-size: 30px;
   background-position: center;
@@ -203,7 +198,7 @@ a:hover {
   height: 300px;
   width: 400px;
   text-align: center;
-  background-image: url("no-result.png");
+  background-image: url("images/no-result.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -240,6 +235,7 @@ a:hover {
 .pic img {
   width: 270px;
   height: 197px;
+  border-radius: 5px;
   object-fit: cover; /*防止圖片變形*/
   display: block; /*移除圖片下方的留白*/
 }

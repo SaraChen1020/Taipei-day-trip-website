@@ -74,6 +74,9 @@ function observe(page, keyword) {
 //圖文版面
 function addDataToDom(result, length) {
   for (let i = 0; i < length; i++) {
+    let tag_a = document.createElement("a");
+    tag_a.setAttribute("href", `/attraction/${result[i].id}`);
+
     let picDiv = document.createElement("div");
     picDiv.className = "pic";
 
@@ -102,7 +105,9 @@ function addDataToDom(result, length) {
     picDiv.appendChild(attractionNameDiv);
     picDiv.appendChild(picTitleDiv);
 
-    document.querySelector(".gallery").appendChild(picDiv);
+    tag_a.appendChild(picDiv);
+
+    document.querySelector(".gallery").appendChild(tag_a);
   }
 }
 
