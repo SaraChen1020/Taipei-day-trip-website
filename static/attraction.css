@@ -38,7 +38,6 @@ a {
 
 a:hover {
   text-decoration: none;
-  cursor: pointer;
 }
 
 .topic {
@@ -86,11 +85,6 @@ a:hover {
   height: 54px;
 }
 
-.white-area {
-  width: 100%;
-  height: 54px;
-}
-
 .container {
   display: grid;
   grid-template-columns: 1fr 1200px 1fr;
@@ -110,7 +104,7 @@ a:hover {
   margin: 40px 0;
 }
 
-.current-pic {
+.slides-container {
   position: relative;
   background-color: gray;
   width: 540px;
@@ -121,43 +115,77 @@ a:hover {
   justify-content: center;
 }
 
-.current-pic img {
-  width: 540px;
-  height: 400px;
+.slides-pictures {
+  width: inherit;
+  height: inherit;
+}
+
+.slide {
+  width: inherit;
+  height: inherit;
+  position: relative;
+  display: none;
+}
+
+.slide img {
+  width: inherit;
+  height: inherit;
   object-fit: cover;
   display: block;
   border-radius: 5px;
 }
 
-.right-arrow {
+.arrow {
+  cursor: pointer;
   position: absolute;
   top: 185px;
+  width: 36px;
+  height: 36px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0.8;
+}
+
+.next-arrow {
   right: 10px;
-  width: 36px;
-  height: 36px;
   background-image: url("images/btn_rightArrow.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-  opacity: 0.8;
 }
 
-.left-arrow {
-  position: absolute;
-  top: 185px;
+.previous-arrow {
   left: 10px;
-  width: 36px;
-  height: 36px;
   background-image: url("images/btn_leftArrow.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-  opacity: 0.8;
 }
 
-.circle-place {
+.dot-position {
   position: absolute;
   display: flex;
   bottom: 10px;
   height: 12px;
+}
+
+.dot {
+  cursor: pointer;
+  height: 12px;
+  width: 12px;
+  margin: 0 6px;
+  background-color: #ffffff;
+  border: 1px solid #ffffff;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active,
+.dot:hover {
+  background-color: #000000;
+}
+
+/* .circle-place {
+  position: absolute;
+  display: flex;
+  bottom: 10px;
+  height: 12px;
+  text-align: center;
 }
 
 .current {
@@ -176,7 +204,7 @@ a:hover {
   height: 12px;
   background-repeat: no-repeat;
   background-size: cover;
-}
+} */
 
 .profile {
   width: 600px;
@@ -208,7 +236,7 @@ a:hover {
 .booking-form {
   background-color: #e8e8e8;
   width: 600px;
-  height: 302px;
+  height: 310px;
   padding: 15px 20px 0 20px;
   border-radius: 5px;
 }
@@ -293,12 +321,23 @@ input[type="date"]::-webkit-datetime-edit-fields-wrapper {
   align-items: center;
 }
 
+/* input[type="radio"] {
+  accent-color: #448899;
+  width: 22px;
+  height: 22px;
+  border: none;
+}
+
+input[type="radio"]:focus {
+  outline: none;
+} */
+
 .time-input {
-  display: none;
+  display: none; /*隱藏預設圖案*/
 }
 
 .radio-label {
-  /*圓圈外框*/
+  /*以label製作圓形圖*/
   position: relative;
   background-color: #ffffff;
   width: 22px;
@@ -446,8 +485,8 @@ hr {
     grid-template-columns: 1fr 100% 1fr;
   }
 
-  .current-pic,
-  .current-pic img {
+  .slides-container,
+  .slides-container img {
     width: 100%;
   }
   .profile {
