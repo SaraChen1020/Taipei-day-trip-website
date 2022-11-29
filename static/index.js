@@ -28,6 +28,9 @@ function getData(page, keyword) {
         observe(data.nextPage, keyword);
       }
       pageLoading = false;
+    })
+    .catch(function (error) {
+      console.log("error", error);
     });
 }
 
@@ -58,6 +61,9 @@ function observe(page, keyword) {
               observer.unobserve(footer);
             }
             pageLoading = false;
+          })
+          .catch(function (error) {
+            console.log("error", error);
           });
       }
     });

@@ -45,11 +45,14 @@ function getData() {
         dotPosition.appendChild(dotDiv);
       }
       showSlides(slideIndex);
+    })
+    .catch(function (error) {
+      console.log("error", error);
     });
 }
 
 //下一張
-function plusSlides(n) {
+function changeSlides(n) {
   showSlides((slideIndex += n));
 }
 
