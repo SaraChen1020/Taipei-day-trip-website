@@ -125,6 +125,17 @@ a:hover {
   height: inherit;
   position: relative;
   display: none;
+  animation-name: fade;
+  animation-duration: 2s;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .slide img {
@@ -172,39 +183,13 @@ a:hover {
   border: 1px solid #ffffff;
   border-radius: 50%;
   display: inline-block;
-  transition: background-color 0.6s ease;
+  transition: background-color 0.6s ease-out;
 }
 
 .active,
 .dot:hover {
   background-color: #000000;
 }
-
-/* .circle-place {
-  position: absolute;
-  display: flex;
-  bottom: 10px;
-  height: 12px;
-  text-align: center;
-}
-
-.current {
-  background-image: url("images/current_circle.png");
-  margin: 0 6px;
-  width: 12px;
-  height: 12px;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-.not-current {
-  background-image: url("images/not_current_circle.png");
-  margin: 0 6px;
-  width: 12px;
-  height: 12px;
-  background-repeat: no-repeat;
-  background-size: cover;
-} */
 
 .profile {
   width: 600px;
@@ -237,7 +222,7 @@ a:hover {
   background-color: #e8e8e8;
   width: 600px;
   height: 310px;
-  padding: 15px 20px 0 20px;
+  padding: 15px 10px 0 20px;
   border-radius: 5px;
 }
 
@@ -269,6 +254,7 @@ a:hover {
 .date {
   display: flex;
   align-items: center;
+  width: 81px;
   height: 17px;
   margin: 9px 5px 9px 0;
   font-size: 16px;
@@ -283,6 +269,7 @@ a:hover {
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
   color: rgba(0, 0, 0, 0);
   opacity: 1;
   background: url("images/icon_calendar.png") no-repeat;
@@ -290,7 +277,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   height: 24px;
   border-width: thin;
   background-position: center;
-  margin-right: 10px;
+  margin-right: 5px;
 }
 
 input[type="date"]::-webkit-datetime-edit-fields-wrapper {
@@ -315,22 +302,10 @@ input[type="date"]::-webkit-datetime-edit-fields-wrapper {
   font-weight: 700;
   height: 22px;
   font-size: 16px;
-  /* line-height: 13px; */
   color: #666666;
   display: flex;
   align-items: center;
 }
-
-/* input[type="radio"] {
-  accent-color: #448899;
-  width: 22px;
-  height: 22px;
-  border: none;
-}
-
-input[type="radio"]:focus {
-  outline: none;
-} */
 
 .time-input {
   display: none; /*隱藏預設圖案*/
@@ -368,6 +343,7 @@ input[type="radio"]:focus {
 }
 
 .day-text {
+  cursor: pointer;
   margin-left: 4px;
   margin-right: 6px;
   font-weight: 500;
@@ -401,6 +377,7 @@ input[type="radio"]:focus {
 }
 
 button {
+  cursor: pointer;
   width: 154px;
   height: 36px;
   margin-top: 25px;
@@ -422,7 +399,7 @@ hr {
   margin: 40px 0;
 }
 
-.infors {
+.information {
   padding: 10px 10px 0 10px;
 }
 
@@ -485,9 +462,9 @@ hr {
     grid-template-columns: 1fr 100% 1fr;
   }
 
-  .slides-container,
-  .slides-container img {
+  .slides-container {
     width: 100%;
+    margin-right: 10px;
   }
   .profile {
     width: 100%;
@@ -499,12 +476,16 @@ hr {
 }
 
 @media (max-width: 600px) {
-  .container {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "content"
-      "footer";
+  .content {
+    padding: 0;
   }
+
+  .profile {
+    margin-top: 20px;
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+
   .section {
     display: block;
   }

@@ -5,21 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="/attraction.css" />
-    <title>景點頁面</title>
+    <title></title>
   </head>
   <body>
     <div class="top">
       <div class="navigation-bar">
-        <a href="/"><div class="topic">台北一日遊</div> </a>
+        <a href="/"><div class="topic">台北一日遊</div></a>
         <div class="frame-2">
           <div class="frame-1 schedule">預定行程</div>
           <div class="frame-1 sign">登入/註冊</div>
         </div>
       </div>
     </div>
-
     <div class="white-area"></div>
-
     <div class="container">
       <div class="content">
         <div class="section">
@@ -29,19 +27,11 @@
                 <img src="" /> 
               </div>-->
             </div>
-
             <div class="dot-position">
               <!-- <div class="dot" onclick="currentSlide(0)"></div>-->
             </div>
-
             <div class="arrow next-arrow" onclick="plusSlides(1)"></div>
             <div class="arrow previous-arrow" onclick="plusSlides(-1)"></div>
-
-            <!-- <div class="circle-place">
-              <div class="current"></div>
-              <div class="not-current"></div>
-              <div class="not-current"></div>
-            </div> -->
           </div>
 
           <div class="profile">
@@ -61,25 +51,25 @@
 
               <div class="field-time">
                 <div class="time">選擇時間：</div>
-
                 <input
                   class="time-input"
                   type="radio"
                   name="day-time"
-                  id="radioID"
+                  id="morning"
                   checked
                 />
-                <label class="radio-label morning" for="radioID"></label>
-                <label for="radioID"><div class="day-text">上半天</div></label>
-
+                <label class="radio-label" for="morning"></label>
+                <label for="morning"><div class="day-text">上半天</div></label>
                 <input
                   class="time-input"
                   type="radio"
                   name="day-time"
-                  id="radioID2"
+                  id="afternoon"
                 />
-                <label class="radio-label afternoon" for="radioID2"></label>
-                <label for="radioID2"><div class="day-text">下半天</div></label>
+                <label class="radio-label" for="afternoon"></label>
+                <label for="afternoon"
+                  ><div class="day-text">下半天</div></label
+                >
               </div>
 
               <div class="field-price">
@@ -92,7 +82,7 @@
           </div>
         </div>
         <hr />
-        <div class="infors">
+        <div class="information">
           <div class="description"></div>
           <div class="address-title">景點地址：</div>
           <div class="address"></div>
