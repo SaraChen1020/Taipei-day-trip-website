@@ -149,7 +149,7 @@ a:hover {
 .arrow {
   cursor: pointer;
   position: absolute;
-  top: 185px;
+  top: 182px;
   width: 36px;
   height: 36px;
   background-repeat: no-repeat;
@@ -478,6 +478,14 @@ hr {
 @media (max-width: 600px) {
   .content {
     padding: 0;
+  }
+
+  .slides-container {
+    height: 350px;
+  }
+
+  .arrow {
+    top: 157px;
   }
 
   .profile {
