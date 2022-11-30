@@ -3,6 +3,7 @@ from flask_restful import Api
 import sys
 sys.path.append("modules")
 from modules.attractions import Attractions,Search_Attractions,Categories
+from modules.members import Members_Signup,Members_Auth
 
 app = Flask(
     __name__,
@@ -20,6 +21,8 @@ app.secret_key = "123789secret"
 api.add_resource(Attractions, "/api/attractions")
 api.add_resource(Search_Attractions, "/api/attraction/<attractionId>" )
 api.add_resource(Categories, "/api/categories")
+api.add_resource(Members_Signup, "/api/user")
+api.add_resource(Members_Auth, "/api/user/auth")
 
 # Pages
 @app.route("/")
