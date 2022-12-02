@@ -23,7 +23,7 @@ class Members_Signup(Resource):
 
         name_check = re.match("^[\u4e00-\u9fa5_a-zA-Z0-9_]{2,20}$", name) #接受2-20中英數字及下底線
         email_check = re.match("^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$", email)
-        password_check = re.match("^(?=.*[A-Z])[A-Za-z\d]{6,12}$", password) #接受6-12中英數字，必須含有1個大寫字母
+        password_check = re.match("^[A-Za-z\d]{6,12}$", password) #接受6-12中英數字
 
         if name_check == None or email_check == None or password_check == None:
             response = jsonify({
@@ -69,7 +69,7 @@ class Members_Auth(Resource):
         password=request.json["password"]
 
         email_check = re.match("^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$", email)
-        password_check = re.match("^(?=.*[A-Z])[A-Za-z\d]{6,12}$", password) #接受6-12中英數字，必須含有1個大寫字母
+        password_check = re.match("^[A-Za-z\d]{6,12}$", password) #接受6-12中英數字
 
         if  email_check == None or password_check == None:
             response = jsonify({
@@ -102,6 +102,7 @@ class Members_Auth(Resource):
                  "ok": True
             }))
             response.set_cookie(key = "token", value = encoded_jwt, max_age = 604800)
+            response.headers["Access-Control-Allow-Methods"] = "PUT"
             return response
         except:
             response = jsonify({
@@ -128,7 +129,7 @@ class Members_Auth(Resource):
                 "data": None
             })
             return response
-            
+
         decoded_jwt = jwt.decode(JWT_cookies, secret_key, algorithms="HS256")
         response = jsonify({
             "data":decoded_jwt

@@ -5,16 +5,82 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="/index.css" />
+    <link rel="stylesheet" type="text/css" href="/sign.css" />
     <title>台北一日遊</title>
   </head>
   <body>
+    <div class="dark none"></div>
     <div class="top">
       <div class="navigation-bar">
         <a href="/"><div class="topic">台北一日遊</div> </a>
         <div class="frame-2">
           <div class="frame-1 schedule">預定行程</div>
-          <div class="frame-1 sign">登入/註冊</div>
+          <div class="frame-1 sign" onclick="signInOpen()">登入/註冊</div>
+          <div class="frame-1 signout none">登出</div>
         </div>
+      </div>
+    </div>
+    <div class="signin none">
+      <div class="decorator-bar"></div>
+      <div class="signin-signup-text">
+        登入會員帳號
+        <div class="exit"></div>
+      </div>
+      <label>
+        <input
+          class="email"
+          id="signin-email"
+          type="email"
+          name="email"
+          placeholder="輸入電子信箱"
+          required
+        />
+        <input
+          class="password"
+          id="signin-password"
+          type="password"
+          name="password"
+          placeholder="輸入密碼"
+          required
+        />
+        <button class="signin-button">登入帳戶</button>
+      </label>
+      <div class="change-signup" onclick="signUpOpen()">
+        還沒有帳戶？點此註冊
+      </div>
+    </div>
+    <div class="signup none">
+      <div class="decorator-bar"></div>
+      <div class="signin-signup-text">
+        註冊會員帳號
+        <div class="exit"></div>
+      </div>
+      <label>
+        <input
+          class="name"
+          id="signup-name"
+          type="text"
+          name="name"
+          placeholder="輸入姓名"
+        />
+        <input
+          class="email"
+          id="signup-email"
+          type="email"
+          name="email"
+          placeholder="輸入電子信箱"
+        />
+        <input
+          class="password"
+          id="signup-password"
+          type="password"
+          name="password"
+          placeholder="輸入密碼"
+        />
+        <button class="signup-button">註冊新帳戶</button>
+      </label>
+      <div class="change-signin" onclick="signInOpen()">
+        已經有帳戶了？點此登入
       </div>
     </div>
     <div class="white-area"></div>
@@ -55,5 +121,6 @@
       </div>
     </div>
     <script src="/index.js"></script>
+    <script src="/sign.js"></script>
   </body>
 </html>

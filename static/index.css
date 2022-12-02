@@ -307,6 +307,10 @@ a {
   margin: 40px;
 }
 
+.none {
+  display: none;
+}
+
 @media (max-width: 1200px) {
   .topic {
     margin-left: 10px;

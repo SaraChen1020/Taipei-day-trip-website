@@ -129,6 +129,10 @@ a:hover {
   animation-duration: 2s;
 }
 
+.none {
+  display: none;
+}
+
 @keyframes fade {
   from {
     opacity: 0.4;
@@ -376,7 +380,7 @@ input[type="date"]::-webkit-datetime-edit-fields-wrapper {
   margin-left: 5px;
 }
 
-button {
+.booking-button {
   cursor: pointer;
   width: 154px;
   height: 36px;

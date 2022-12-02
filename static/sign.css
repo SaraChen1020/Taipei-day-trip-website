@@ -1,0 +1,126 @@
+.dark {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.25);
+  z-index: 50;
+}
+
+.signin {
+  box-sizing: border-box;
+  position: fixed;
+  background-color: #ffffff;
+  z-index: 100;
+  width: 340px;
+  top: 80px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  border-radius: 6px;
+  box-shadow: 0px 4px 60px #aaaaaa;
+}
+
+.decorator-bar {
+  width: inherit;
+  height: 10px;
+  border-radius: 6px 6px 0 0;
+  background: linear-gradient(270deg, #337788 0%, #66aabb 100%);
+}
+
+.signin-signup-text {
+  position: relative;
+  display: flex;
+  height: 27px;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+  color: #666666;
+  justify-content: center;
+  margin: 15px;
+}
+
+.exit {
+  position: absolute;
+  height: 16px;
+  width: 16px;
+  background-image: url("images/icon_close.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  right: 0;
+  cursor: pointer;
+}
+
+.email,
+.password,
+.name {
+  box-sizing: border-box;
+  margin: 0 15px;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  width: 310px;
+  height: 47px;
+  padding: 15px;
+  font-weight: 500;
+  color: #000000;
+  font-size: 16px;
+  outline: none;
+}
+
+.name {
+  margin-bottom: 10px;
+}
+
+.email::placeholder,
+.password::placeholder,
+.name::placeholder {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 13px;
+  color: #757575;
+}
+
+.password {
+  margin: 15px;
+}
+
+.signin-button,
+.signup-button {
+  width: 310px;
+  height: 47px;
+  margin: 0 15px;
+  background: #448899;
+  border: none;
+  border-radius: 5px;
+  font-weight: 400;
+  font-size: 19px;
+  line-height: 16px;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.change-signup,
+.change-signin {
+  display: flex;
+  justify-content: center;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 13px;
+  margin: 10px 15px 15px 15px;
+  color: #666666;
+  cursor: pointer;
+  line-height: 13px;
+}
+
+.signup {
+  box-sizing: border-box;
+  position: fixed;
+  background-color: #ffffff;
+  z-index: 100;
+  width: 340px;
+  top: 80px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  border-radius: 6px;
+  box-shadow: 0px 4px 60px #aaaaaa;
+}
