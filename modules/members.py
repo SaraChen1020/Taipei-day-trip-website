@@ -1,18 +1,18 @@
-import json
 import db_Connect
 import re
 import jwt
 from flask import *
 from flask_restful import Resource
+from flask_bcrypt import generate_password_hash, check_password_hash
 
 secret_key="secret1657952"
-# connection = db_Connect.dbConnect.get_connection()
-# cursor = connection.cursor()
-# cursor.execute("CREATE TABLE IF NOT EXISTS members(id BIGINT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL);")
-# cursor.execute("INSERT INTO members (name, email, password) VALUES ('sara', 'sara@test.com', 123456);")
-# connection.commit()
-# cursor.close()
-# connection.close()
+
+connection = db_Connect.dbConnect.get_connection()
+cursor = connection.cursor()
+cursor.execute("CREATE TABLE IF NOT EXISTS members(id BIGINT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL);")
+connection.commit()
+cursor.close()
+connection.close()
 
 class Members_Signup(Resource):
     # 註冊會員
@@ -28,7 +28,7 @@ class Members_Signup(Resource):
         if name_check == None or email_check == None or password_check == None:
             response = jsonify({
                 "error": True,
-                "message": "資料格式有誤"
+                "message": "註冊資料格式有誤"
             })
             response.status_code = "400"
             return response
@@ -40,7 +40,8 @@ class Members_Signup(Resource):
             result=cursor.fetchone()
 
             if result == None:
-                cursor.execute("INSERT INTO members (name, email, password) VALUES (%s, %s, %s)", [name, email, password])
+                hash_password = generate_password_hash(password).decode('utf-8')
+                cursor.execute("INSERT INTO members (name, email, password) VALUES (%s, %s, %s)", [name, email, hash_password])
                 connection.commit()
                 response = jsonify({"ok":True})
                 return response
@@ -74,35 +75,35 @@ class Members_Auth(Resource):
         if  email_check == None or password_check == None:
             response = jsonify({
                 "error": True,
-                "message": "登入失敗，資料格式有誤"
+                "message": "登入失敗，資料格式錯誤"
             })
             response.status_code = "400"
             return response
         try:
             connection = db_Connect.dbConnect.get_connection()
-            cursor = connection.cursor()
-            cursor.execute("SELECT id, name, email FROM members WHERE email = %s AND password = %s",[email, password])
+            cursor = connection.cursor(dictionary=True)
+            cursor.execute("SELECT id, name, email, password FROM members WHERE email = %s",[email])
             result = cursor.fetchone()
-            
-            if result == None:
+            hash_password_check = check_password_hash(result["password"], password)
+
+            if hash_password_check == False or result == None:
                 response = jsonify({
                     "error": True,
-                    "message": "登入失敗，帳號或密碼錯誤"
+                    "message": "登入失敗，信箱或密碼輸入錯誤"
                 })
                 response.status_code = "400"
                 return response
 
             JWT_data = {
-                "id": result[0],
-                "name": result[1],
-                "email": result[2]
+                "id": result["id"],
+                "name": result["name"],
+                "email": result["email"]
             }
             encoded_jwt = jwt.encode(JWT_data, secret_key, algorithm="HS256")
             response = make_response(jsonify({
                  "ok": True
             }))
             response.set_cookie(key = "token", value = encoded_jwt, max_age = 604800)
-            response.headers["Access-Control-Allow-Methods"] = "PUT"
             return response
         except:
             response = jsonify({

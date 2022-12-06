@@ -4,6 +4,7 @@ import sys
 sys.path.append("modules")
 from modules.attractions import Attractions,Search_Attractions,Categories
 from modules.members import Members_Signup,Members_Auth
+from flask_bcrypt import Bcrypt
 
 app = Flask(
     __name__,
@@ -16,7 +17,7 @@ app.config.update(RESTFUL_JSON=dict(ensure_ascii=False))
 app.config["JSON_SORT_KEYS"]=False
 
 api=Api(app)
-app.secret_key = "123789secret"
+bcrypt = Bcrypt(app)
 
 api.add_resource(Attractions, "/api/attractions")
 api.add_resource(Search_Attractions, "/api/attraction/<attractionId>" )
