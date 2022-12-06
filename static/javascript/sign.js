@@ -21,7 +21,6 @@ function signInOpen() {
 }
 
 function signUpOpen() {
-  signin.classList.add("none");
   signup.classList.remove("none");
 }
 
