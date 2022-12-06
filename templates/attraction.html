@@ -1,166 +1,84 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="/attraction.css" />
-    <link rel="stylesheet" type="text/css" href="/sign.css" />
-    <title></title>
-  </head>
-  <body>
-    <div class="dark none"></div>
-    <div class="top">
-      <div class="navigation-bar">
-        <a href="/"><div class="topic">台北一日遊</div></a>
-        <div class="frame-2">
-          <div class="frame-1 schedule">預定行程</div>
-          <div class="frame-1 sign" onclick="signInOpen()">登入/註冊</div>
-          <div class="frame-1 signout none">登出</div>
-        </div>
-      </div>
-    </div>
-    <div class="signin none">
-      <div class="decorator-bar"></div>
-      <div class="signin-signup-text">
-        登入會員帳號
-        <div class="exit"></div>
-      </div>
-      <label>
-        <input
-          class="email"
-          id="signin-email"
-          type="email"
-          name="email"
-          placeholder="輸入電子信箱"
-          required
-        />
-        <input
-          class="password"
-          id="signin-password"
-          type="password"
-          name="password"
-          placeholder="輸入密碼"
-          required
-        />
-        <button class="signin-button">登入帳戶</button>
-      </label>
-      <div class="change-signup" onclick="signUpOpen()">
-        還沒有帳戶？點此註冊
-      </div>
-    </div>
-    <div class="signup none">
-      <div class="decorator-bar"></div>
-      <div class="signin-signup-text">
-        註冊會員帳號
-        <div class="exit"></div>
-      </div>
-      <label>
-        <input
-          class="name"
-          id="signup-name"
-          type="text"
-          name="name"
-          placeholder="輸入姓名"
-        />
-        <input
-          class="email"
-          id="signup-email"
-          type="email"
-          name="email"
-          placeholder="輸入電子信箱"
-        />
-        <input
-          class="password"
-          id="signup-password"
-          type="password"
-          name="password"
-          placeholder="輸入密碼"
-        />
-        <button class="signup-button">註冊新帳戶</button>
-      </label>
-      <div class="change-signin" onclick="signInOpen()">
-        已經有帳戶了？點此登入
-      </div>
-    </div>
-    <div class="white-area"></div>
-    <div class="container">
-      <div class="content">
-        <div class="section">
-          <div class="slides-container">
-            <div class="slides-pictures">
-              <!-- <div class="slide">
+{% extends "index.html" %}
+<!-- -->
+{% block head %}
+<link rel="stylesheet" type="text/css" href="/attraction.css" />
+<title></title>
+{% endblock %}
+<!-- -->
+{% block content %}
+<div class="container">
+  <div class="content">
+    <div class="section">
+      <div class="slides-container">
+        <div class="slides-pictures">
+          <!-- <div class="slide">
                 <img src="" /> 
               </div>-->
-            </div>
-            <div class="dot-position">
-              <!-- <div class="dot" onclick="currentSlide(0)"></div>-->
-            </div>
-            <div class="arrow next-arrow" onclick="changeSlides(1)"></div>
-            <div class="arrow previous-arrow" onclick="changeSlides(-1)"></div>
-          </div>
-
-          <div class="profile">
-            <div class="attraction-name"></div>
-            <div class="category-mrt"></div>
-
-            <div class="booking-form">
-              <div class="booking-title">訂購導覽行程</div>
-              <div class="booking-slogan">
-                以此景點為中心的一日行程，帶您探索城市角落故事
-              </div>
-
-              <div class="field-date">
-                <div class="date">選擇日期：</div>
-                <input class="date-input" type="date" />
-              </div>
-
-              <div class="field-time">
-                <div class="time">選擇時間：</div>
-                <input
-                  class="time-input"
-                  type="radio"
-                  name="day-time"
-                  id="morning"
-                  checked
-                />
-                <label class="radio-label" for="morning"></label>
-                <label for="morning"><div class="day-text">上半天</div></label>
-                <input
-                  class="time-input"
-                  type="radio"
-                  name="day-time"
-                  id="afternoon"
-                />
-                <label class="radio-label" for="afternoon"></label>
-                <label for="afternoon"
-                  ><div class="day-text">下半天</div></label
-                >
-              </div>
-
-              <div class="field-price">
-                <div class="price">導覽費用：</div>
-                <div class="price-1">新台幣 2000 元</div>
-              </div>
-
-              <button class="booking-button">開始預約行程</button>
-            </div>
-          </div>
         </div>
-        <hr />
-        <div class="information">
-          <div class="description"></div>
-          <div class="address-title">景點地址：</div>
-          <div class="address"></div>
-          <div class="transport-title">交通方式：</div>
-          <div class="transport"></div>
+        <div class="dot-position">
+          <!-- <div class="dot" onclick="currentSlide(0)"></div>-->
         </div>
+        <div class="arrow next-arrow" onclick="changeSlides(1)"></div>
+        <div class="arrow previous-arrow" onclick="changeSlides(-1)"></div>
       </div>
-      <div class="footer">
-        <div>COPYRIGHT © 2022 台北一日遊</div>
+
+      <div class="profile">
+        <div class="attraction-name"></div>
+        <div class="category-mrt"></div>
+
+        <div class="booking-form">
+          <div class="booking-title">訂購導覽行程</div>
+          <div class="booking-slogan">
+            以此景點為中心的一日行程，帶您探索城市角落故事
+          </div>
+
+          <div class="field-date">
+            <div class="date">選擇日期：</div>
+            <input class="date-input" type="date" />
+          </div>
+
+          <div class="field-time">
+            <div class="time">選擇時間：</div>
+            <input
+              class="time-input"
+              type="radio"
+              name="day-time"
+              id="morning"
+              checked
+            />
+            <label class="radio-label" for="morning"></label>
+            <label for="morning"><div class="day-text">上半天</div></label>
+            <input
+              class="time-input"
+              type="radio"
+              name="day-time"
+              id="afternoon"
+            />
+            <label class="radio-label" for="afternoon"></label>
+            <label for="afternoon"><div class="day-text">下半天</div></label>
+          </div>
+
+          <div class="field-price">
+            <div class="price">導覽費用：</div>
+            <div class="price-1">新台幣 2000 元</div>
+          </div>
+
+          <button class="booking-button">開始預約行程</button>
+        </div>
       </div>
     </div>
-    <script src="/attraction.js"></script>
-    <script src="/sign.js"></script>
-  </body>
-</html>
+    <hr />
+    <div class="information">
+      <div class="description"></div>
+      <div class="address-title">景點地址：</div>
+      <div class="address"></div>
+      <div class="transport-title">交通方式：</div>
+      <div class="transport"></div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+<!-- -->
+{% block script %}
+<script src="/attraction.js"></script>
+{% endblock %}
