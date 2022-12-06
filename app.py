@@ -1,9 +1,9 @@
 from flask import *
 from flask_restful import Api
 import sys
-sys.path.append("modules")
-from modules.attractions import Attractions,Search_Attractions,Categories
-from modules.members import Members_Signup,Members_Auth
+sys.path.append("models")
+from models.attractions import Attractions,Search_Attractions,Categories
+from models.members import Members_Signup,Members_Auth
 from flask_bcrypt import Bcrypt
 
 app = Flask(
