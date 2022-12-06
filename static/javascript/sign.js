@@ -117,7 +117,8 @@ signoutButton.addEventListener("click", function () {
     });
 });
 
-function checkValid(element, checkRule) {
+function checkValid(element) {
+  let checkRule = element.name;
   if (checkRule == "email") {
     checkRule =
       /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
