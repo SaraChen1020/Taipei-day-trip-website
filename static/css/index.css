@@ -82,7 +82,7 @@ a {
   display: flex;
   justify-content: center;
   height: 320px;
-  background-image: url("images/welcome.png");
+  background-image: url("/images/welcome.png");
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -146,7 +146,7 @@ a {
   height: 46px;
   border-radius: 0 5px 5px 0;
   background-color: #448899;
-  background-image: url("images/icon_search.png");
+  background-image: url("/images/icon_search.png");
   background-repeat: no-repeat;
   background-size: 30px;
   background-position: center;
@@ -198,7 +198,7 @@ a {
   height: 300px;
   width: 400px;
   text-align: center;
-  background-image: url("images/no-result.png");
+  background-image: url("/images/no-result.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

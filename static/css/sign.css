@@ -44,7 +44,7 @@
   position: absolute;
   height: 16px;
   width: 16px;
-  background-image: url("images/icon_close.png");
+  background-image: url("/images/icon_close.png");
   background-size: cover;
   background-repeat: no-repeat;
   right: 0;

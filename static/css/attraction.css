@@ -163,12 +163,12 @@ a:hover {
 
 .next-arrow {
   right: 10px;
-  background-image: url("images/btn_rightArrow.png");
+  background-image: url("/images/btn_rightArrow.png");
 }
 
 .previous-arrow {
   left: 10px;
-  background-image: url("images/btn_leftArrow.png");
+  background-image: url("/images/btn_leftArrow.png");
 }
 
 .dot-position {
@@ -276,7 +276,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   cursor: pointer;
   color: rgba(0, 0, 0, 0);
   opacity: 1;
-  background: url("images/icon_calendar.png") no-repeat;
+  background: url("/images/icon_calendar.png") no-repeat;
   width: 24px;
   height: 24px;
   border-width: thin;
