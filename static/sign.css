@@ -60,11 +60,15 @@
   border-radius: 5px;
   width: 310px;
   height: 47px;
-  padding: 15px;
+  padding: 15px 10px 15px 15px;
   font-weight: 500;
   color: #000000;
   font-size: 16px;
   outline: none;
+  background-size: 25px;
+  background-repeat: no-repeat;
+  background-position: right;
+  background-origin: content-box;
 }
 
 .name {
@@ -81,7 +85,7 @@
 }
 
 .password {
-  margin: 15px;
+  margin: 10px 15px;
 }
 
 .signin-button,
@@ -123,4 +127,18 @@
   transform: translate(-50%, 0);
   border-radius: 6px;
   box-shadow: 0px 4px 60px #aaaaaa;
+}
+
+.status-message {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.success {
+  color: green;
+}
+
+.error {
+  color: red;
 }

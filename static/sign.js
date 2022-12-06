@@ -7,6 +7,10 @@ const exits = document.querySelectorAll(".exit");
 const signinButton = document.querySelector(".signin-button");
 const signupButton = document.querySelector(".signup-button");
 const signoutButton = document.querySelector(".signout");
+const signinError = document.querySelector("#signin-error");
+const signupSuccess = document.querySelector(".success");
+const signupError = document.querySelector("#signup-error");
+const currentPath = location.pathname;
 
 checkSigninStatus();
 
@@ -25,7 +29,7 @@ for (let exit of exits) {
   exit.addEventListener("click", function () {
     signin.classList.add("none");
     signup.classList.add("none");
-    dark.classList.toggle("none");
+    dark.classList.add("none");
   });
 }
 
@@ -37,8 +41,8 @@ function checkSigninStatus() {
     .then(function (data) {
       let result = data.data;
       if (result != null) {
-        sign.classList.add("none");
         signout.classList.remove("none");
+        sign.classList.add("none");
       } else {
         sign.classList.remove("none");
         signout.classList.add("none");
@@ -47,8 +51,8 @@ function checkSigninStatus() {
 }
 
 signinButton.addEventListener("click", function () {
-  const email = document.querySelector("#signin-email").value;
-  const password = document.querySelector("#signin-password").value;
+  let email = document.querySelector("#signin-email").value;
+  let password = document.querySelector("#signin-password").value;
 
   fetch("/api/user/auth", {
     method: "PUT",
@@ -59,14 +63,11 @@ signinButton.addEventListener("click", function () {
       return response.json();
     })
     .then(function (data) {
-      if (data["ok"]) {
-        console.log("登入成功");
-        sign.classList.add("none");
-        signout.classList.remove("none");
-        signin.classList.add("none");
-        dark.classList.add("none");
-      } else if (data["error"]) {
-        console.log(data["message"]); //印出對應的錯誤訊息
+      if (data.ok) {
+        document.location.href = currentPath;
+      } else if (data.error) {
+        signinError.classList.remove("none");
+        signinError.textContent = data.message;
       }
     })
     .catch(function (error) {
@@ -88,12 +89,13 @@ signupButton.addEventListener("click", function () {
       return response.json();
     })
     .then(function (data) {
-      if (data["ok"]) {
-        console.log("註冊成功");
-        signup.classList.add("none");
-        dark.classList.add("none");
-      } else if (data["error"]) {
-        console.log(data["message"]);
+      if (data.ok) {
+        signupSuccess.classList.remove("none");
+        signupError.classList.add("none");
+      } else if (data.error) {
+        signupSuccess.classList.add("none");
+        signupError.classList.remove("none");
+        signupError.textContent = data.message;
       }
     })
     .catch(function (error) {
@@ -110,8 +112,26 @@ signoutButton.addEventListener("click", function () {
       return response.json();
     })
     .then(function (data) {
-      if (data["ok"]) {
-        checkSigninStatus();
+      if (data.ok) {
+        document.location.href = currentPath;
       }
     });
 });
+
+function checkValid(element, checkRule) {
+  if (checkRule == "email") {
+    checkRule =
+      /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
+  } else if (checkRule == "password") {
+    checkRule = /^[A-Za-z\d]{6,12}$/;
+  } else if (checkRule == "name") {
+    checkRule = /^[\u4e00-\u9fa5_a-zA-Z0-9_]{2,20}$/;
+  }
+
+  let regex = new RegExp(checkRule);
+  if (!regex.test(element.value)) {
+    element.style.backgroundImage = "url(/images/error.png)";
+  } else {
+    element.style.backgroundImage = "url(/images/check.png)";
+  }
+}
