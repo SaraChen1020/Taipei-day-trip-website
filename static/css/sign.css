@@ -19,6 +19,17 @@
   transform: translate(-50%, 0);
   border-radius: 6px;
   box-shadow: 0px 4px 60px #aaaaaa;
+  animation-name: signin-move;
+  animation-duration: 0.5s;
+}
+
+@keyframes signin-move {
+  from {
+    top: -200px;
+  }
+  to {
+    top: 80px;
+  }
 }
 
 .decorator-bar {
