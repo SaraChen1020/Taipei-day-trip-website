@@ -85,9 +85,16 @@ class Members_Auth(Resource):
             cursor = connection.cursor(dictionary=True)
             cursor.execute("SELECT id, name, email, password FROM members WHERE email = %s",[email])
             result = cursor.fetchone()
+            if result == None:
+                response = jsonify({
+                    "error": True,
+                    "message": "登入失敗，信箱或密碼輸入錯誤"
+                })
+                response.status_code = "400"
+                return response
+            
             hash_password_check = check_password_hash(result["password"], password)
-
-            if hash_password_check == False or result == None:
+            if hash_password_check == False:
                 response = jsonify({
                     "error": True,
                     "message": "登入失敗，信箱或密碼輸入錯誤"
