@@ -12,7 +12,6 @@ class Attractions(Resource):
         except:
             response = jsonify({"error": True, "message": "type error"})
             response.status_code = "500"
-            response.headers["Content-Type"] = "application/json"
             response.headers["Access-Control-Allow-Origin"] = "*"
             return response
 
@@ -44,7 +43,6 @@ class Attractions(Resource):
                 "nextPage": page+1,
                 "data": data
                 })
-                response.headers["Content-Type"] = "application/json"
                 response.headers["Access-Control-Allow-Origin"] = "*"
                 return response
             elif page >= totalID[0]//12:
@@ -52,13 +50,11 @@ class Attractions(Resource):
                 "nextPage": None,
                 "data": data
                 })
-                response.headers["Content-Type"] = "application/json"
                 response.headers["Access-Control-Allow-Origin"] = "*"
                 return response
         except:
             response = jsonify({"error": True,"message": "server error"})
             response.status_code = "500"
-            response.headers["Content-Type"] = "application/json"
             response.headers["Access-Control-Allow-Origin"] = "*"
             return response
         finally:
@@ -89,19 +85,16 @@ class Search_Attractions(Resource):
                     }
                 })
                 response.status_code = "200"
-                response.headers["Content-Type"] = "application/json"
                 response.headers["Access-Control-Allow-Origin"] = "*"
                 return response
             else:
                 response = jsonify({"error": True, "message": "無此景點編號"})
                 response.status_code = "400"
-                response.headers["Content-Type"] = "application/json"
                 response.headers["Access-Control-Allow-Origin"] = "*"
                 return response
         except:
             response = jsonify({"error": True,"message": "server error"})
             response.status_code = "500"
-            response.headers["Content-Type"] = "application/json"
             response.headers["Access-Control-Allow-Origin"] = "*"
             return response
         finally:
@@ -125,13 +118,11 @@ class Categories(Resource):
                 "data": data
             })
             response.status_code = "200"
-            response.headers["Content-Type"] = "application/json"
             response.headers["Access-Control-Allow-Origin"] = "*"
             return response
         except:
             response = jsonify({"error": True, "message": "server error"})
             response.status_code = "500"
-            response.headers["Content-Type"] = "application/json"
             response.headers["Access-Control-Allow-Origin"] = "*"
             return response
         finally:

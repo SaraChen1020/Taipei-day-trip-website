@@ -5,10 +5,10 @@ const noResult = document.querySelector(".no-result");
 const footer = document.querySelector(".footer");
 let pageLoading = false;
 
-window.onload = getData(0, "");
+window.onload = getData();
 
 //初始畫面
-function getData(page, keyword) {
+function getData(page = 0, keyword = "") {
   pageLoading = true;
   url = `/api/attractions?page=${page}&keyword=${keyword}`;
   fetch(url)

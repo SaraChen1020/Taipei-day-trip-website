@@ -1,8 +1,10 @@
 from flask import *
 from flask_restful import Api
 import sys
-sys.path.append("modules")
-from modules.attractions import Attractions,Search_Attractions,Categories
+sys.path.append("models")
+from models.attractions import Attractions,Search_Attractions,Categories
+from models.members import Members_Signup,Members_Auth
+from flask_bcrypt import Bcrypt
 
 app = Flask(
     __name__,
@@ -15,11 +17,13 @@ app.config.update(RESTFUL_JSON=dict(ensure_ascii=False))
 app.config["JSON_SORT_KEYS"]=False
 
 api=Api(app)
-app.secret_key = "123789secret"
+bcrypt = Bcrypt(app)
 
 api.add_resource(Attractions, "/api/attractions")
 api.add_resource(Search_Attractions, "/api/attraction/<attractionId>" )
 api.add_resource(Categories, "/api/categories")
+api.add_resource(Members_Signup, "/api/user")
+api.add_resource(Members_Auth, "/api/user/auth")
 
 # Pages
 @app.route("/")
