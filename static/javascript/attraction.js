@@ -13,42 +13,40 @@ const dotPosition = document.querySelector(".dot-position");
 let slideIndex = 0;
 let path = location.pathname;
 
-window.onload = getData();
+window.onload = onLoad();
 
-function getData() {
-  fetch(`/api${path}`)
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      let result = data.data;
-      title.textContent = result.name;
-      attractionName.textContent = result.name;
-      categoryMRT.textContent = `${result.category} at ${result.mrt}`;
-      description.textContent = result.description;
-      address.textContent = result.address;
-      transport.textContent = result.transport;
+async function onLoad() {
+  try {
+    const response = await fetch(`/api${path}`);
+    const data = await response.json();
+    const result = data.data;
 
-      for (let i = 0; i < result.images.length; i++) {
-        let slideDiv = document.createElement("div");
-        slideDiv.className = "slide";
+    title.textContent = result.name;
+    attractionName.textContent = result.name;
+    categoryMRT.textContent = `${result.category} at ${result.mrt}`;
+    description.textContent = result.description;
+    address.textContent = result.address;
+    transport.textContent = result.transport;
 
-        let img = document.createElement("img");
-        img.setAttribute("src", `${result.images[i]}`);
+    for (let i = 0; i < result.images.length; i++) {
+      const slideDiv = document.createElement("div");
+      slideDiv.className = "slide";
 
-        slideDiv.appendChild(img);
-        slidesPictures.appendChild(slideDiv);
+      const img = document.createElement("img");
+      img.setAttribute("src", `${result.images[i]}`);
 
-        let dotDiv = document.createElement("div");
-        dotDiv.className = "dot";
-        dotDiv.setAttribute("onclick", `currentSlide(${i})`);
-        dotPosition.appendChild(dotDiv);
-      }
-      showSlides(slideIndex);
-    })
-    .catch(function (error) {
-      console.log("error", error);
-    });
+      slideDiv.appendChild(img);
+      slidesPictures.appendChild(slideDiv);
+
+      const dotDiv = document.createElement("div");
+      dotDiv.className = "dot";
+      dotDiv.setAttribute("onclick", `currentSlide(${i})`);
+      dotPosition.appendChild(dotDiv);
+    }
+    showSlides(slideIndex);
+  } catch (error) {
+    console.log("error", error);
+  }
 }
 
 //下一張
@@ -63,8 +61,8 @@ function currentSlide(n) {
 
 //顯示圖片
 function showSlides(n) {
-  let slides = document.querySelectorAll(".slide");
-  let dots = document.querySelectorAll(".dot");
+  const slides = document.querySelectorAll(".slide");
+  const dots = document.querySelectorAll(".dot");
 
   //超過輪播圖片的數量，回到第一張
   if (n >= slides.length) {

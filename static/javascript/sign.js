@@ -32,89 +32,82 @@ for (let exit of exits) {
   });
 }
 
-function checkSigninStatus() {
-  fetch("/api/user/auth")
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      let result = data.data;
-      if (result != null) {
-        signout.classList.remove("none");
-        sign.classList.add("none");
-      } else {
-        sign.classList.remove("none");
-        signout.classList.add("none");
-      }
-    });
+async function checkSigninStatus() {
+  try {
+    const response = await fetch("/api/user/auth");
+    const data = await response.json();
+    const result = data.data;
+    if (result != null) {
+      signout.classList.remove("none");
+      sign.classList.add("none");
+    } else {
+      sign.classList.remove("none");
+      signout.classList.add("none");
+    }
+  } catch (error) {
+    console.log("error", error);
+  }
 }
 
-signinButton.addEventListener("click", function () {
-  let email = document.querySelector("#signin-email").value;
-  let password = document.querySelector("#signin-password").value;
-
-  fetch("/api/user/auth", {
-    method: "PUT",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify({ email: email, password: password }),
-  })
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      if (data.ok) {
-        document.location.href = currentPath;
-      } else if (data.error) {
-        signinError.classList.remove("none");
-        signinError.textContent = data.message;
-      }
-    })
-    .catch(function (error) {
-      console.log("error", error);
+signinButton.addEventListener("click", async () => {
+  const email = document.querySelector("#signin-email").value;
+  const password = document.querySelector("#signin-password").value;
+  try {
+    const response = await fetch("/api/user/auth", {
+      method: "PUT",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ email: email, password: password }),
     });
+    const data = await response.json();
+    if (data.ok) {
+      document.location.href = currentPath;
+    } else if (data.error) {
+      signinError.classList.remove("none");
+      signinError.textContent = data.message;
+    }
+  } catch (error) {
+    console.log("error", error);
+  }
 });
 
-signupButton.addEventListener("click", function () {
+signupButton.addEventListener("click", async () => {
   const name = document.querySelector("#signup-name").value;
   const email = document.querySelector("#signup-email").value;
   const password = document.querySelector("#signup-password").value;
 
-  fetch("/api/user", {
-    method: "POST",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify({ name: name, email: email, password: password }),
-  })
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      if (data.ok) {
-        signupSuccess.classList.remove("none");
-        signupError.classList.add("none");
-      } else if (data.error) {
-        signupSuccess.classList.add("none");
-        signupError.classList.remove("none");
-        signupError.textContent = data.message;
-      }
-    })
-    .catch(function (error) {
-      console.log("error", error);
+  try {
+    const response = await fetch("/api/user", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ name: name, email: email, password: password }),
     });
+    const data = await response.json();
+    if (data.ok) {
+      signupSuccess.classList.remove("none");
+      signupError.classList.add("none");
+    } else if (data.error) {
+      signupSuccess.classList.add("none");
+      signupError.classList.remove("none");
+      signupError.textContent = data.message;
+    }
+  } catch (error) {
+    console.log("error", error);
+  }
 });
 
-signoutButton.addEventListener("click", function () {
-  fetch("/api/user/auth", {
-    method: "DELETE",
-    headers: { "content-type": "application/json" },
-  })
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      if (data.ok) {
-        document.location.href = currentPath;
-      }
+signoutButton.addEventListener("click", async () => {
+  try {
+    const response = await fetch("/api/user/auth", {
+      method: "DELETE",
+      headers: { "content-type": "application/json" },
     });
+    const data = await response.json();
+    if (data.ok) {
+      document.location.href = currentPath;
+    }
+  } catch (error) {
+    console.log("error", error);
+  }
 });
 
 function checkValid(element) {
