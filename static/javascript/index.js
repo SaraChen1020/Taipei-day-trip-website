@@ -5,7 +5,10 @@ const noResult = document.querySelector(".no-result");
 const footer = document.querySelector(".footer");
 let pageLoading = false;
 
-window.onload = getData();
+window.onload = () => {
+  checkSigninStatus();
+  getData();
+};
 
 //初始畫面
 async function getData(page = 0, keyword = "") {

@@ -10,9 +10,29 @@ const signoutButton = document.querySelector(".signout");
 const signinError = document.querySelector("#signin-error");
 const signupSuccess = document.querySelector(".success");
 const signupError = document.querySelector("#signup-error");
+const schedule = document.querySelector(".schedule");
 const currentPath = location.pathname;
+let memberName;
+let signinStatus = false;
 
-checkSigninStatus();
+async function checkSigninStatus() {
+  try {
+    const response = await fetch("/api/user/auth");
+    const data = await response.json();
+    const result = data.data;
+    if (result != null) {
+      memberName = result.name;
+      signout.classList.remove("none");
+      sign.classList.add("none");
+      signinStatus = true;
+    } else {
+      sign.classList.remove("none");
+      signout.classList.add("none");
+    }
+  } catch (error) {
+    console.log("error", error);
+  }
+}
 
 function signInOpen() {
   dark.classList.remove("none");
@@ -30,23 +50,6 @@ for (let exit of exits) {
     signup.classList.add("none");
     dark.classList.add("none");
   });
-}
-
-async function checkSigninStatus() {
-  try {
-    const response = await fetch("/api/user/auth");
-    const data = await response.json();
-    const result = data.data;
-    if (result != null) {
-      signout.classList.remove("none");
-      sign.classList.add("none");
-    } else {
-      sign.classList.remove("none");
-      signout.classList.add("none");
-    }
-  } catch (error) {
-    console.log("error", error);
-  }
 }
 
 signinButton.addEventListener("click", async () => {
@@ -103,6 +106,7 @@ signoutButton.addEventListener("click", async () => {
     });
     const data = await response.json();
     if (data.ok) {
+      signinStatus = false;
       document.location.href = currentPath;
     }
   } catch (error) {
@@ -128,3 +132,12 @@ function checkValid(element) {
     element.style.backgroundImage = "url(/images/check.png)";
   }
 }
+
+schedule.addEventListener("click", () => {
+  checkSigninStatus();
+  if (signinStatus) {
+    document.location.href = "/booking";
+  } else {
+    console.log("未登入");
+  }
+});

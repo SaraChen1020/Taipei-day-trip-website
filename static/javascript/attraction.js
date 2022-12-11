@@ -13,9 +13,12 @@ const dotPosition = document.querySelector(".dot-position");
 let slideIndex = 0;
 let path = location.pathname;
 
-window.onload = onLoad();
+window.onload = () => {
+  checkSigninStatus();
+  getData();
+};
 
-async function onLoad() {
+async function getData() {
   try {
     const response = await fetch(`/api${path}`);
     const data = await response.json();
