@@ -9,6 +9,9 @@ const afternoon = document.querySelector("#afternoon");
 const price = document.querySelector(".price-1");
 const slidesPictures = document.querySelector(".slides-pictures");
 const dotPosition = document.querySelector(".dot-position");
+const dateInput = document.querySelector(".date-input");
+const bookingButton = document.querySelector(".booking-button");
+const bookingText = document.querySelector(".booking-text");
 
 let slideIndex = 0;
 let path = location.pathname;
@@ -89,9 +92,49 @@ function showSlides(n) {
 }
 
 morning.addEventListener("click", function () {
+  morning.setAttribute("checked", "checked");
+  afternoon.removeAttribute("checked");
   price.textContent = "新台幣 2000 元";
 });
 
 afternoon.addEventListener("click", function () {
+  morning.removeAttribute("checked");
+  afternoon.setAttribute("checked", "checked");
   price.textContent = "新台幣 2500 元";
 });
+
+bookingButton.addEventListener("click", function () {
+  const attractionId = location.pathname.replace("/attraction/", "");
+  const date = dateInput.value;
+  const dayTime = document.querySelector("[name=day-time]:checked").id;
+  const price = dayTime == "morning" ? 2000 : 2500;
+
+  bookingSchedule(attractionId, date, dayTime, price);
+});
+
+async function bookingSchedule(id, date, time, price) {
+  try {
+    const response = await fetch("/api/booking", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        attractionId: id,
+        date: date,
+        time: time,
+        price: price,
+      }),
+    });
+    if (response.status == 403) {
+      signInOpen();
+    }
+    const data = await response.json();
+    if (data.ok) {
+      document.location.href = "/booking";
+    } else if (data.error) {
+      bookingText.classList.remove("none");
+      bookingText.textContent = data.message;
+    }
+  } catch (error) {
+    console.log("error", error);
+  }
+}

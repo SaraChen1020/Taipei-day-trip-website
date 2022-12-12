@@ -311,6 +311,19 @@ input[type="date"]::-webkit-datetime-edit-fields-wrapper {
   text-align: center;
 }
 
+.booking-text {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  margin-top: 10px;
+  padding-left: 28px;
+  color: red;
+  height: 24px;
+  background-image: url("/images/error2.png");
+  background-size: 24px;
+  background-repeat: no-repeat;
+}
+
 hr {
   border: 1px solid #e8e8e8;
   margin: 40px 0;
@@ -349,6 +362,10 @@ hr {
 
 .transport {
   margin-bottom: 80px;
+}
+
+.none {
+  display: none;
 }
 
 @media (max-width: 1200px) {
