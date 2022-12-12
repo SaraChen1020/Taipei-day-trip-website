@@ -4,6 +4,7 @@ import sys
 sys.path.append("models")
 from models.attractions import Attractions,Search_Attractions,Categories
 from models.members import Members_Signup,Members_Auth
+from models.booking import Booking_Schedule
 from flask_bcrypt import Bcrypt
 
 app = Flask(
@@ -24,6 +25,7 @@ api.add_resource(Search_Attractions, "/api/attraction/<attractionId>" )
 api.add_resource(Categories, "/api/categories")
 api.add_resource(Members_Signup, "/api/user")
 api.add_resource(Members_Auth, "/api/user/auth")
+api.add_resource(Booking_Schedule, "/api/booking")
 
 # Pages
 @app.route("/")
