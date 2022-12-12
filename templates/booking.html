@@ -1,0 +1,104 @@
+{% extends "index.html" %}
+<!-- -->
+{% block head %}
+<link rel="stylesheet" type="text/css" href="/css/booking.css" />
+<title></title>
+{% endblock %}
+<!-- -->
+{% block content %}
+<div class="container">
+  <div class="content">
+    <div class="headline">
+      您好，
+      <div class="username"></div>
+      ，待預定的行程如下：
+    </div>
+    <div class="schedule-content">
+      <!-- <div class="schedule-section">
+      <div class="photo">
+        <img
+          src="https://www.travel.taipei/d_upload_ttn/sceneadmin/pic/11003387.jpg"
+        />
+      </div>
+      <div class="schedule-delete"></div>
+
+      <div class="attraction-information">
+        <div class="attraction-title">台北一日遊：平安鐘</div>
+        <div class="frame">
+          日期：
+          <div>2021-04-23</div>
+        </div>
+        <div class="frame">
+          時間：
+          <div class="booking-time">早上 9 點到下午 4 點</div>
+        </div>
+        <div class="frame">
+          費用：
+          <div class="booking-price">新台幣 2000 元</div>
+        </div>
+        <div class="frame">
+          地點：
+          <div class="booking-address">臺北市 大安區忠孝東路4段</div>
+        </div>
+      </div>
+    </div> -->
+    </div>
+
+    <div class="line"></div>
+    <div class="contact-form">
+      <div class="contact-title">您的聯絡資訊</div>
+      <div class="contact-information">
+        聯絡姓名：<input class="contact-name" type="text" />
+      </div>
+      <div class="contact-information">
+        聯絡信箱：<input class="contact-email" type="email" />
+      </div>
+      <div class="contact-information">
+        手機號碼：<input class="contact-phone" type="tel" />
+      </div>
+      <div class="contact-note">
+        請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。
+      </div>
+    </div>
+
+    <div class="line"></div>
+    <div class="payment-form">
+      <div class="payment-title">信用卡付款資訊</div>
+      <div class="payment-information">
+        卡片號碼：<input
+          class="payment-number"
+          type="text"
+          placeholder="**** **** **** ****"
+        />
+      </div>
+      <div class="payment-information">
+        過期時間：<input
+          class="payment-duedate"
+          type="text"
+          placeholder="MM / YY"
+        />
+      </div>
+      <div class="payment-information">
+        驗證密碼：<input
+          class="payment-password"
+          type="text"
+          placeholder="CVV"
+        />
+      </div>
+    </div>
+
+    <div class="line"></div>
+    <div class="confirm-form">
+      <div class="total-price">總價：新台幣 2000 元</div>
+      <div class="submit">
+        <div class="submit-button">確認訂購並付款</div>
+      </div>
+    </div>
+  </div>
+
+  {% endblock %}
+  <!-- -->
+  {% block script %}
+</div>
+<script src="/javascript/booking.js"></script>
+{% endblock %}

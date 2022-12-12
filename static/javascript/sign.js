@@ -138,6 +138,6 @@ schedule.addEventListener("click", () => {
   if (signinStatus) {
     document.location.href = "/booking";
   } else {
-    console.log("未登入");
+    signInOpen();
   }
 });
