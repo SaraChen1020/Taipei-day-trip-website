@@ -1,5 +1,6 @@
 import db_Connect
 import jwt
+import datetime
 from flask import *
 from flask_restful import Resource
 from myconfig import configModel
@@ -20,6 +21,14 @@ class Booking_Schedule(Resource):
         time = request.json["time"]
         price = request.json["price"]
 
+        today = datetime.date.today()
+        today = today.year + today.month + today.day
+        select_date=int(date[0:4])+int(date[5:7])+int(date[8:10])
+        now_time = datetime.datetime.now().hour
+        select_time = 9
+        if time == "afternoon":
+            select_time = 14
+
         JWT_cookies = request.cookies.get("token")
         if JWT_cookies == None:
             response = jsonify({
@@ -35,7 +44,21 @@ class Booking_Schedule(Resource):
             })
             response.status_code = "400"
             return response
-
+        if select_date < today:
+            response = jsonify({
+                "error": True,
+                "message": "無法預約過去的日期"
+            })
+            response.status_code = "400"
+            return response
+        elif select_date == today and now_time > select_time:
+            response = jsonify({
+                "error": True,
+                "message": "目前時間已超過該預約時段，請選擇其他時段或日期"
+            })
+            response.status_code = "400"
+            return response
+        
         decoded_jwt = jwt.decode(JWT_cookies, secret_key, algorithms="HS256")
         member_id = decoded_jwt["id"]
         try:

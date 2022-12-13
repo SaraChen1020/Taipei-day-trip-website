@@ -30,7 +30,7 @@
 .schedule-section {
   display: flex;
   margin: 0 110px 40px 110px;
-  height: 200px;
+  /* height: 200px; */
   padding: 0 8px;
   position: relative;
 }
@@ -71,7 +71,10 @@
   margin-bottom: 20px;
 }
 
-.frame {
+.booking-date,
+.booking-time,
+.booking-price,
+.booking-address {
   display: flex;
   height: 24px;
   align-items: center;
@@ -82,7 +85,7 @@
   margin-bottom: 10px;
 }
 
-.frame div {
+p {
   font-weight: 500;
 }
 
@@ -96,6 +99,20 @@
 
 .line {
   border-bottom: 1px solid #e8e8e8;
+}
+
+.passtime-text {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  color: red;
+  font-size: 16px;
+  height: 20px;
+  background-image: url("/images/error2.png");
+  background-size: 20px;
+  background-repeat: no-repeat;
+  padding-left: 24px;
+  padding-bottom: 2px;
 }
 
 .contact-form,
