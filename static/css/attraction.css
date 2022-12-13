@@ -314,14 +314,16 @@ input[type="date"]::-webkit-datetime-edit-fields-wrapper {
 .booking-text {
   display: flex;
   align-items: center;
-  font-size: 14px;
+  font-size: 15px;
   margin-top: 10px;
   padding-left: 28px;
-  color: red;
+  font-weight: 500;
+  color: #fa5252;
   height: 24px;
   background-image: url("/images/error2.png");
   background-size: 24px;
   background-repeat: no-repeat;
+  padding-bottom: 2px;
 }
 
 hr {
