@@ -85,7 +85,7 @@ function loadDataToDom(result) {
 
     const bookingAddress = document.createElement("div");
     bookingAddress.className = "booking-address";
-    bookingAddress.innerHTML = `地點：<p>${result[i].attraction.address}</p>`;
+    bookingAddress.innerHTML = `<b>地點：</b><p>${result[i].attraction.address}</p>`;
     rightInformation.appendChild(bookingAddress);
 
     if (oderDate < todayDate) {
@@ -96,8 +96,12 @@ function loadDataToDom(result) {
     }
 
     sectionDiv.appendChild(rightInformation);
-    scheduleContent.appendChild(sectionDiv);
 
+    const lineDiv = document.createElement("div");
+    lineDiv.className = "line";
+
+    scheduleContent.appendChild(sectionDiv);
+    scheduleContent.appendChild(lineDiv);
     sumOfPrice += result[i].price;
   }
   totalPrice.textContent = `總價：新台幣 ${sumOfPrice} 元`;

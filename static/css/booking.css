@@ -43,6 +43,7 @@
 .photo img {
   width: inherit;
   height: inherit;
+  object-fit: cover;
 }
 
 .attraction-information {
@@ -76,17 +77,19 @@
 .booking-price,
 .booking-address {
   display: flex;
-  height: 24px;
-  align-items: center;
   font-weight: 700;
   font-size: 16px;
-  line-height: 13px;
   color: #666666;
   margin-bottom: 10px;
 }
 
+.booking-address b {
+  white-space: nowrap;
+}
+
 p {
   font-weight: 500;
+  margin: 0;
 }
 
 .no-schedule {
@@ -99,13 +102,14 @@ p {
 
 .line {
   border-bottom: 1px solid #e8e8e8;
+  margin-bottom: 40px;
 }
 
 .passtime-text {
   display: flex;
   align-items: center;
   font-weight: 500;
-  color: red;
+  color: #fa5252;
   font-size: 16px;
   height: 20px;
   background-image: url("/images/error2.png");
@@ -118,7 +122,7 @@ p {
 .contact-form,
 .payment-form,
 .confirm-form {
-  margin: 40px 110px;
+  margin: 0 110px 40px 110px;
   color: #666666;
 }
 
@@ -154,12 +158,11 @@ p {
 }
 
 .contact-note {
-  display: flex;
-  align-items: center;
+  /* display: flex;
+  align-items: center; */
   font-weight: 700;
   font-size: 16px;
-  line-height: 13px;
-  height: 24px;
+  /* height: 24px; */
 }
 
 .payment-information input::placeholder {
@@ -198,4 +201,62 @@ p {
   font-size: 19px;
   line-height: 16px;
   border-radius: 5px;
+}
+
+@media (max-width: 1200px) {
+  .topic {
+    margin-left: 10px;
+  }
+  .container {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "content"
+      "footer";
+  }
+
+  .attraction-information {
+    margin-left: 15px;
+  }
+
+  .headline,
+  .schedule-section,
+  .contact-form,
+  .payment-form,
+  .confirm-form {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+}
+
+@media (max-width: 600px) {
+  .schedule-section {
+    display: block;
+  }
+
+  .photo {
+    width: 100%;
+  }
+
+  .headline,
+  .schedule-section,
+  .contact-form,
+  .payment-form,
+  .confirm-form {
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 0;
+  }
+
+  .attraction-information {
+    margin-left: 0;
+  }
+
+  .attraction-title {
+    margin-top: 30px;
+  }
+
+  .schedule-delete {
+    top: 100%;
+    bottom: 40px;
+  }
 }
