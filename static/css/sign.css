@@ -180,14 +180,26 @@ a {
 }
 
 .password {
-  margin: 10px 15px;
+  margin: 10px 15px 0 15px;
+}
+
+.rule-text {
+  margin-top: 2px;
+  margin-left: 15px;
+  padding-left: 24px;
+  font-size: 14px;
+  color: #fa5252;
+  background-image: url("/images/error2.png");
+  background-size: 20px;
+  background-repeat: no-repeat;
+  padding-bottom: 1px;
 }
 
 .signin-button,
 .signup-button {
   width: 310px;
   height: 47px;
-  margin: 0 15px;
+  margin: 10px 15px 0 15px;
   background: #448899;
   border: none;
   border-radius: 5px;

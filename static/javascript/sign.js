@@ -7,14 +7,17 @@ const exits = document.querySelectorAll(".exit");
 const signinButton = document.querySelector(".signin-button");
 const signupButton = document.querySelector(".signup-button");
 const signoutButton = document.querySelector(".signout");
+const ruleTexts = document.querySelectorAll(".rule-text");
 const signinError = document.querySelector("#signin-error");
 const signupSuccess = document.querySelector(".success");
 const signupError = document.querySelector("#signup-error");
 const schedule = document.querySelector(".schedule");
 const currentPath = location.pathname;
 let memberName;
+let memberEmail;
 let signinStatus = false;
 
+// 會員登入狀態確認
 async function checkSigninStatus() {
   try {
     const response = await fetch("/api/user/auth");
@@ -22,6 +25,7 @@ async function checkSigninStatus() {
     const result = data.data;
     if (result != null) {
       memberName = result.name;
+      memberEmail = result.email;
       signout.classList.remove("none");
       sign.classList.add("none");
       signinStatus = true;
@@ -114,6 +118,7 @@ signoutButton.addEventListener("click", async () => {
   }
 });
 
+// 驗證資料格式
 function checkValid(element) {
   let checkRule = element.name;
   if (checkRule == "email") {
@@ -121,8 +126,14 @@ function checkValid(element) {
       /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
   } else if (checkRule == "password") {
     checkRule = /^[A-Za-z\d]{6,12}$/;
+    for (let ruleText of ruleTexts) {
+      ruleText.classList.remove("none");
+      ruleText.textContent = "密碼長度需為6-12個字元或數字";
+    }
   } else if (checkRule == "name") {
     checkRule = /^[\u4e00-\u9fa5_a-zA-Z0-9_]{2,20}$/;
+  } else if (checkRule == "phone") {
+    checkRule = /^09\d{8}$/;
   }
 
   let regex = new RegExp(checkRule);
@@ -130,6 +141,9 @@ function checkValid(element) {
     element.style.backgroundImage = "url(/images/error.png)";
   } else {
     element.style.backgroundImage = "url(/images/check.png)";
+    for (let ruleText of ruleTexts) {
+      ruleText.classList.add("none");
+    }
   }
 }
 
