@@ -1,10 +1,10 @@
 from models import db_Connect
-import re
 import jwt
 from flask import *
 from flask_restful import Resource
 from flask_bcrypt import generate_password_hash, check_password_hash
 from models.myconfig import configModel
+from models.function import *
 
 secret_key=configModel.jwt_key()
 
@@ -22,9 +22,9 @@ class Members_Signup(Resource):
         email=request.json["email"]
         password=request.json["password"]
 
-        name_check = re.match("^[\u4e00-\u9fa5_a-zA-Z0-9_]{2,20}$", name) #接受2-20中英數字及下底線
-        email_check = re.match("^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$", email)
-        password_check = re.match("^[A-Za-z\d]{6,12}$", password) #接受6-12中英數字
+        name_check = valid_name(name)
+        email_check = valid_email(email)
+        password_check = valid_password(password)
 
         if name_check == None or email_check == None or password_check == None:
             response = jsonify({
@@ -70,8 +70,8 @@ class Members_Auth(Resource):
         email=request.json["email"]
         password=request.json["password"]
 
-        email_check = re.match("^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$", email)
-        password_check = re.match("^[A-Za-z\d]{6,12}$", password) #接受6-12中英數字
+        email_check = valid_email(email)
+        password_check = valid_password(password)
 
         if  email_check == None or password_check == None:
             response = jsonify({
