@@ -56,7 +56,7 @@
   right: 0;
   width: 30px;
   height: 30px;
-  background-image: url("/images/icon_delete.png");
+  background-image: url("/static/images/icon_delete.png");
   background-repeat: no-repeat;
 }
 
@@ -111,7 +111,7 @@ p {
   color: #fa5252;
   font-size: 16px;
   height: 20px;
-  background-image: url("/images/error2.png");
+  background-image: url("/static/images/error2.png");
   background-size: 20px;
   background-repeat: no-repeat;
   padding-left: 24px;
@@ -166,7 +166,7 @@ p {
 
 .contact-name,
 .contact-email {
-  background-image: url("/images/check.png");
+  background-image: url("/static/images/check.png");
 }
 
 .contact-note {

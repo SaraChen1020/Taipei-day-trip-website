@@ -1,10 +1,10 @@
-import db_Connect
+from models import db_Connect
 import re
 import jwt
 from flask import *
 from flask_restful import Resource
 from flask_bcrypt import generate_password_hash, check_password_hash
-from myconfig import configModel
+from models.myconfig import configModel
 
 secret_key=configModel.jwt_key()
 

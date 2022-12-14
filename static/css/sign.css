@@ -139,7 +139,7 @@ a {
   position: absolute;
   height: 16px;
   width: 16px;
-  background-image: url("/images/icon_close.png");
+  background-image: url("/static/images/icon_close.png");
   background-size: cover;
   background-repeat: no-repeat;
   right: 0;
@@ -189,7 +189,7 @@ a {
   padding-left: 24px;
   font-size: 14px;
   color: #fa5252;
-  background-image: url("/images/error2.png");
+  background-image: url("/static/images/error2.png");
   background-size: 20px;
   background-repeat: no-repeat;
   padding-bottom: 1px;

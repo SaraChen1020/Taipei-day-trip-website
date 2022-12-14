@@ -1,9 +1,9 @@
-import db_Connect
+from models import db_Connect
 import jwt
 import datetime
 from flask import *
 from flask_restful import Resource
-from myconfig import configModel
+from models.myconfig import configModel
 
 secret_key=configModel.jwt_key()
 

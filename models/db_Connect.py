@@ -1,5 +1,5 @@
 import mysql.connector
-from myconfig import configModel
+from models.myconfig import configModel
 
 def database_connection():
     data = configModel.db_connect()

@@ -76,12 +76,12 @@
 
 .next-arrow {
   right: 10px;
-  background-image: url("/images/btn_rightArrow.png");
+  background-image: url("/static/images/btn_rightArrow.png");
 }
 
 .previous-arrow {
   left: 10px;
-  background-image: url("/images/btn_leftArrow.png");
+  background-image: url("/static/images/btn_leftArrow.png");
 }
 
 .dot-position {
@@ -189,7 +189,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   cursor: pointer;
   color: rgba(0, 0, 0, 0);
   opacity: 1;
-  background: url("/images/icon_calendar.png") no-repeat;
+  background: url("/static/images/icon_calendar.png") no-repeat;
   width: 24px;
   height: 24px;
   border-width: thin;
@@ -320,7 +320,7 @@ input[type="date"]::-webkit-datetime-edit-fields-wrapper {
   font-weight: 500;
   color: #fa5252;
   height: 24px;
-  background-image: url("/images/error2.png");
+  background-image: url("/static/images/error2.png");
   background-size: 24px;
   background-repeat: no-repeat;
   padding-bottom: 2px;

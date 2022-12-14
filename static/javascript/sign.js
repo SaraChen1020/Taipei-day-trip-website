@@ -138,9 +138,9 @@ function checkValid(element) {
 
   let regex = new RegExp(checkRule);
   if (!regex.test(element.value)) {
-    element.style.backgroundImage = "url(/images/error.png)";
+    element.style.backgroundImage = "url(/static/images/error.png)";
   } else {
-    element.style.backgroundImage = "url(/images/check.png)";
+    element.style.backgroundImage = "url(/static/images/check.png)";
     for (let ruleText of ruleTexts) {
       ruleText.classList.add("none");
     }
