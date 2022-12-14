@@ -1,6 +1,6 @@
 const username = document.querySelector(".username");
 const scheduleContent = document.querySelector(".schedule-content");
-const lines = document.querySelectorAll(".line");
+const information = document.querySelector(".information");
 const contactForm = document.querySelector(".contact-form");
 const contactName = document.querySelector(".contact-name");
 const contactEmail = document.querySelector(".contact-email");
@@ -30,6 +30,7 @@ async function getData() {
   const result = data.data;
   if (result != null) {
     loadDataToDom(result);
+    information.classList.remove("none");
   } else {
     noData();
   }
@@ -130,12 +131,6 @@ function noData() {
   noSchedule.className = "no-schedule";
   noSchedule.textContent = "目前沒有任何待預訂的行程。";
   scheduleContent.appendChild(noSchedule);
-  for (let line of lines) {
-    line.classList.add("none");
-  }
-  contactForm.classList.add("none");
-  paymentForm.classList.add("none");
-  confirmForm.classList.add("none");
 }
 
 // 刪除行程
