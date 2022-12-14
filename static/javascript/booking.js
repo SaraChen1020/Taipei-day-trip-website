@@ -2,7 +2,12 @@ const username = document.querySelector(".username");
 const scheduleContent = document.querySelector(".schedule-content");
 const lines = document.querySelectorAll(".line");
 const contactForm = document.querySelector(".contact-form");
+const contactName = document.querySelector(".contact-name");
+const contactEmail = document.querySelector(".contact-email");
 const paymentForm = document.querySelector(".payment-form");
+const paymentNumber = document.querySelector(".payment-number");
+const paymentDueDate = document.querySelector(".payment-duedate");
+const paymentPassword = document.querySelector(".payment-password");
 const confirmForm = document.querySelector(".confirm-form");
 const totalPrice = document.querySelector(".total-price");
 
@@ -10,6 +15,8 @@ window.onload = async () => {
   await checkSigninStatus();
   if (signinStatus) {
     username.textContent = memberName;
+    contactName.value = memberName;
+    contactEmail.value = memberEmail;
     getData();
   } else {
     document.location.href = "/";
@@ -159,3 +166,24 @@ function overdueNotice(rightInformation) {
   passTimeDiv.textContent = "此筆預定的日期或時間已過期";
   rightInformation.appendChild(passTimeDiv);
 }
+
+// 信用卡數字自動分隔及驗證
+paymentNumber.addEventListener("keyup", function () {
+  this.value = this.value.replace(/\s/g, "").replace(/(\d{4})(?=\d)/g, "$1 ");
+  let regexOfCard = new RegExp(/^\d{16}$/);
+  if (regexOfCard.test(this.value.replace(/\s*/g, ""))) {
+    this.style.color = "black";
+  } else {
+    this.style.color = "red";
+  }
+});
+
+// 月份自動加上/，驗證功能待研究
+paymentDueDate.addEventListener("keyup", function () {
+  this.value = this.value.replace(/^[0-9]{2}$/, "$& / "); //有成功補上 /
+  // /^(0?[1-9]|1[0-2]){2}$/  驗證前兩個數字是月份
+});
+
+paymentPassword.addEventListener("keyup", function () {
+  this.value = this.value.replace(/[^\d]/g, "");
+});

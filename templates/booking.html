@@ -48,13 +48,28 @@
     <div class="contact-form">
       <div class="contact-title">您的聯絡資訊</div>
       <div class="contact-information">
-        聯絡姓名：<input class="contact-name" type="text" />
+        聯絡姓名：<input
+          class="contact-name"
+          type="text"
+          name="name"
+          oninput="checkValid(this)"
+        />
       </div>
       <div class="contact-information">
-        聯絡信箱：<input class="contact-email" type="email" />
+        聯絡信箱：<input
+          class="contact-email"
+          type="email"
+          name="email"
+          oninput="checkValid(this)"
+        />
       </div>
       <div class="contact-information">
-        手機號碼：<input class="contact-phone" type="tel" />
+        手機號碼：<input
+          class="contact-phone"
+          type="tel"
+          name="phone"
+          oninput="checkValid(this)"
+        />
       </div>
       <div class="contact-note">
         請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。
@@ -68,6 +83,7 @@
         卡片號碼：<input
           class="payment-number"
           type="text"
+          maxlength="19"
           placeholder="**** **** **** ****"
         />
       </div>
@@ -75,6 +91,7 @@
         過期時間：<input
           class="payment-duedate"
           type="text"
+          maxlength="7"
           placeholder="MM / YY"
         />
       </div>
@@ -82,6 +99,7 @@
         驗證密碼：<input
           class="payment-password"
           type="text"
+          maxlength="3"
           placeholder="CVV"
         />
       </div>

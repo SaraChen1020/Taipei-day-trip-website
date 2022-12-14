@@ -21,14 +21,6 @@ class Booking_Schedule(Resource):
         time = request.json["time"]
         price = request.json["price"]
 
-        today = datetime.date.today()
-        today = today.year + today.month + today.day
-        select_date=int(date[0:4])+int(date[5:7])+int(date[8:10])
-        now_time = datetime.datetime.now().hour
-        select_time = 9
-        if time == "afternoon":
-            select_time = 14
-
         JWT_cookies = request.cookies.get("token")
         if JWT_cookies == None:
             response = jsonify({
@@ -44,6 +36,15 @@ class Booking_Schedule(Resource):
             })
             response.status_code = "400"
             return response
+
+        today = datetime.date.today()
+        today = today.year + today.month + today.day
+        select_date=int(date[0:4])+int(date[5:7])+int(date[8:10])
+        now_time = datetime.datetime.now().hour
+        select_time = 9
+        if time == "afternoon":
+            select_time = 14
+
         if select_date < today:
             response = jsonify({
                 "error": True,
@@ -137,7 +138,7 @@ class Booking_Schedule(Resource):
             cursor.close()
             connection.close()
     
-    # 刪除目前的預定行程
+    # 刪除預定行程
     def delete(self):
         JWT_cookies = request.cookies.get("token")
         if JWT_cookies == None:
