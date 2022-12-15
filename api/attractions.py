@@ -1,5 +1,5 @@
 import json
-import db_Connect
+from models import db_Connect
 from flask import *
 from flask_restful import Resource
 

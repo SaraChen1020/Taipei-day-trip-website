@@ -1,16 +1,11 @@
 from flask import *
 from flask_restful import Api
-import sys
-sys.path.append("models")
-from models.attractions import Attractions,Search_Attractions,Categories
-from models.members import Members_Signup,Members_Auth
+from api.attractions import Attractions,Search_Attractions,Categories
+from api.members import Members_Signup,Members_Auth
+from api.booking import Booking_Schedule
 from flask_bcrypt import Bcrypt
 
-app = Flask(
-    __name__,
-    static_folder="static",
-    static_url_path="/"
-)
+app = Flask(__name__,)
 app.config["JSON_AS_ASCII"]=False
 app.config["TEMPLATES_AUTO_RELOAD"]=True
 app.config.update(RESTFUL_JSON=dict(ensure_ascii=False))
@@ -24,6 +19,7 @@ api.add_resource(Search_Attractions, "/api/attraction/<attractionId>" )
 api.add_resource(Categories, "/api/categories")
 api.add_resource(Members_Signup, "/api/user")
 api.add_resource(Members_Auth, "/api/user/auth")
+api.add_resource(Booking_Schedule, "/api/booking")
 
 # Pages
 @app.route("/")

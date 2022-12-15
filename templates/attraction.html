@@ -1,7 +1,7 @@
 {% extends "index.html" %}
 <!-- -->
 {% block head %}
-<link rel="stylesheet" type="text/css" href="/css/attraction.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/attraction.css" />
 <title></title>
 {% endblock %}
 <!-- -->
@@ -64,6 +64,7 @@
           </div>
 
           <button class="booking-button">開始預約行程</button>
+          <div class="booking-text none">請選擇預約日期</div>
         </div>
       </div>
     </div>
@@ -76,9 +77,10 @@
       <div class="transport"></div>
     </div>
   </div>
+
+  {% endblock %}
+  <!-- -->
+  {% block script %}
 </div>
-{% endblock %}
-<!-- -->
-{% block script %}
-<script src="/javascript/attraction.js"></script>
+<script src="/static/javascript/attraction.js"></script>
 {% endblock %}
