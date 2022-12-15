@@ -1,6 +1,6 @@
 from models import db_Connect
 import jwt
-import datetime
+from datetime import *
 from flask import *
 from flask_restful import Resource
 from models.myconfig import configModel
@@ -37,14 +37,15 @@ class Booking_Schedule(Resource):
             response.status_code = "400"
             return response
 
-        today = datetime.date.today()
-        today = today.year + today.month + today.day
+        tz = timezone(timedelta(hours=+8))
+        taiwan_now = datetime.now(tz)
+        today = taiwan_now.year + taiwan_now.month + taiwan_now.day
         select_date=int(date[0:4])+int(date[5:7])+int(date[8:10])
-        now_time = datetime.datetime.now().hour
+        now_time = taiwan_now.hour
         select_time = 9
         if time == "afternoon":
             select_time = 14
-
+            
         if select_date < today:
             response = jsonify({
                 "error": True,
@@ -52,7 +53,8 @@ class Booking_Schedule(Resource):
             })
             response.status_code = "400"
             return response
-        elif select_date == today and now_time > select_time:
+        
+        elif select_date == today and now_time >= select_time:
             response = jsonify({
                 "error": True,
                 "message": "目前時間已超過該預約時段，請選擇其他時段或日期"

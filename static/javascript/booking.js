@@ -99,7 +99,7 @@ function loadDataToDom(result) {
     if (oderDate < todayDate) {
       overdueNotice(rightInformation);
     }
-    if (oderDate == todayDate && nowTime > orderTime) {
+    if (oderDate == todayDate && nowTime >= orderTime) {
       overdueNotice(rightInformation);
     }
 
