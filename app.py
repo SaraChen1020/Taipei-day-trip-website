@@ -3,9 +3,10 @@ from flask_restful import Api
 from api.attractions import Attractions,Search_Attractions,Categories
 from api.members import Members_Signup,Members_Auth
 from api.booking import Booking_Schedule
+from api.orders import Order_Schedule
 from flask_bcrypt import Bcrypt
 
-app = Flask(__name__,)
+app = Flask(__name__)
 app.config["JSON_AS_ASCII"]=False
 app.config["TEMPLATES_AUTO_RELOAD"]=True
 app.config.update(RESTFUL_JSON=dict(ensure_ascii=False))
@@ -20,6 +21,7 @@ api.add_resource(Categories, "/api/categories")
 api.add_resource(Members_Signup, "/api/user")
 api.add_resource(Members_Auth, "/api/user/auth")
 api.add_resource(Booking_Schedule, "/api/booking")
+api.add_resource(Order_Schedule, "/api/orders")
 
 # Pages
 @app.route("/")
