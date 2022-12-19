@@ -20,4 +20,13 @@ class ConfigModel():
         secret_key=config["JWT_KEY"]["secret_key"]
         return secret_key
 
+    def tap_pay(self):
+        data={
+            "merchant_id" : config["TapPay"]["merchant_id"],
+            "partner_key" : config["TapPay"]["partner_key"],
+            "app_id" : config["TapPay"]["app_id"],
+            "app_key" : config["TapPay"]["app_key"]
+        }
+        return data
+
 configModel=ConfigModel()
