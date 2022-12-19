@@ -80,28 +80,16 @@
       <div class="payment-form">
         <div class="payment-title">信用卡付款資訊</div>
         <div class="payment-information">
-          卡片號碼：<input
-            class="payment-number"
-            type="text"
-            maxlength="19"
-            placeholder="**** **** **** ****"
-          />
+          卡片號碼：
+          <div class="tpfield" id="card-number"></div>
         </div>
         <div class="payment-information">
-          過期時間：<input
-            class="payment-duedate"
-            type="text"
-            maxlength="7"
-            placeholder="MM / YY"
-          />
+          過期時間：
+          <div class="tpfield" id="card-expiration-date"></div>
         </div>
         <div class="payment-information">
-          驗證密碼：<input
-            class="payment-password"
-            type="text"
-            maxlength="3"
-            placeholder="CVV"
-          />
+          驗證密碼：
+          <div class="tpfield" id="card-ccv"></div>
         </div>
       </div>
 
@@ -119,5 +107,6 @@
   <!-- -->
   {% block script %}
 </div>
+<script src="https://js.tappaysdk.com/sdk/tpdirect/v5.14.0"></script>
 <script src="/static/javascript/booking.js"></script>
 {% endblock %}

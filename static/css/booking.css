@@ -148,7 +148,7 @@ p {
 }
 
 .contact-form input,
-.payment-form input {
+.tpfield {
   width: 200px;
   height: 38px;
   border: 1px solid #e8e8e8;
