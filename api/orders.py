@@ -117,3 +117,71 @@ class Order_Schedule(Resource):
         finally:
             cursor.close()
             connection.close()
+
+class Order_Get_Schedule(Resource):
+    def get(self, orderNumber):
+        JWT_cookies = request.cookies.get("token")
+        if JWT_cookies == None:
+            response = jsonify({
+                "error": True,
+                "message": "未登入系統，拒絕存取"
+            })
+            response.status_code = "403"
+            return response
+
+        decoded_jwt = jwt.decode(JWT_cookies, secret_key, algorithms="HS256")
+        member_id = decoded_jwt["id"]
+        try:
+            connection = db_Connect.dbConnect.get_connection()
+            cursor = connection.cursor(dictionary=True)
+            cursor.execute("SELECT order_list.*, attractions.name, attractions.address, attractions.images FROM order_list INNER JOIN attractions ON order_list.attraction_id=attractions.id WHERE order_list.member_id = %s AND order_list.order_number = %s;", [member_id, orderNumber])
+            results = cursor.fetchall()
+            if results != []:
+                data = []
+                total_price = 0
+                for i in results:
+                    order_number = i["order_number"]
+                    total_price += i["order_price"]
+                    contact_name = i["contact_name"]
+                    contact_phone = i["contact_phone"]
+                    contact_email = i["contact_email"]
+                    status = i["status"]
+                    data_group = {
+                            "attraction": {
+                                "id": i["attraction_id"],
+                                "name": i["name"],
+                                "address": i["address"],
+                                "image": json.loads(i["images"])[0]
+                            },
+                            "date": str(i["order_date"]),
+                            "time": i["order_time"],
+                            "price": i["order_price"]
+                            }
+                    data.append(data_group)
+                
+                response = jsonify({
+                    "data": {
+                        "number": order_number,
+                        "price": total_price,
+                        "trip": data,
+                        "contact": {
+                            "name": contact_name,
+                            "email": contact_email,
+                            "phone": contact_phone
+                        },
+                        "status": status
+                    }
+                })
+                return response
+            response = jsonify({"data": None})
+            return response
+        except:
+            response = jsonify({
+                "error": True,
+                "message":"server error"
+            })
+            response.status_code = "500"
+            return response
+        finally:
+            cursor.close()
+            connection.close()

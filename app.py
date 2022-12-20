@@ -3,7 +3,7 @@ from flask_restful import Api
 from api.attractions import Attractions,Search_Attractions,Categories
 from api.members import Members_Signup,Members_Auth
 from api.booking import Booking_Schedule
-from api.orders import Order_Schedule
+from api.orders import Order_Schedule,Order_Get_Schedule
 from flask_bcrypt import Bcrypt
 
 app = Flask(__name__)
@@ -22,6 +22,8 @@ api.add_resource(Members_Signup, "/api/user")
 api.add_resource(Members_Auth, "/api/user/auth")
 api.add_resource(Booking_Schedule, "/api/booking")
 api.add_resource(Order_Schedule, "/api/orders")
+api.add_resource(Order_Get_Schedule, "/api/order/<orderNumber>")
+
 
 # Pages
 @app.route("/")
