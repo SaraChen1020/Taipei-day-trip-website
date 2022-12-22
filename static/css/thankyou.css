@@ -1,0 +1,32 @@
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1200px 1fr;
+  grid-template-rows: auto 104px;
+  grid-template-areas:
+    ". content ."
+    "footer footer footer";
+}
+
+.content {
+  grid-area: content;
+  margin-bottom: 20px;
+  margin-top: 40px;
+  font-weight: 700;
+  font-size: 19px;
+  line-height: 16px;
+  color: #666666;
+  text-align: center;
+}
+
+.order-number {
+  font-size: 18px;
+  font-weight: 500;
+  color: #666666;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  text-align: center;
+}

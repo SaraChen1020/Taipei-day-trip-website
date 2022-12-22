@@ -1,0 +1,22 @@
+{% extends "index.html" %}
+<!-- -->
+{% block head %}
+<link rel="stylesheet" type="text/css" href="/static/css/thankyou.css" />
+<title>訂購完成 - 台北一日遊</title>
+{% endblock %}
+<!-- -->
+{% block content %}
+<div class="container">
+  <div class="content">
+    <p class="order-message"></p>
+    <p>您的訂單編號如下</p>
+    <p class="order-number"></p>
+    <p>請<a class="order-page">點此</a>確認訂單內容</p>
+  </div>
+
+  {% endblock %}
+  <!-- -->
+  {% block script %}
+</div>
+<script src="/static/javascript/thankyou.js"></script>
+{% endblock %}
