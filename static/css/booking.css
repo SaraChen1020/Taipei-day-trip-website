@@ -200,7 +200,8 @@ p {
   cursor: pointer;
   display: flex;
   justify-content: center;
-  margin: 22px 0;
+  margin-top: 22px;
+  margin-bottom: 22px;
   padding: 10px 20px;
   width: 173px;
   height: 36px;
@@ -210,6 +211,64 @@ p {
   font-size: 19px;
   line-height: 16px;
   border-radius: 5px;
+}
+
+.popup {
+  position: fixed;
+  background-color: #ffffff;
+  z-index: 100;
+  width: 340px;
+  height: 150px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 6px;
+  box-shadow: 0px 4px 60px #aaaaaa;
+}
+
+.message-box {
+  height: 95px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.error-image {
+  background-image: url("/static/images/error2.png");
+  background-size: 25px;
+  background-repeat: no-repeat;
+  width: 26px;
+  height: 24px;
+  margin-right: 2px;
+}
+
+.error-message {
+  padding-bottom: 2px;
+  color: #fa5252;
+}
+
+.normal-message {
+  color: #757575;
+  padding-bottom: 2px;
+}
+
+.close-pop {
+  cursor: pointer;
+  width: 80px;
+  text-align: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin: auto;
+  background-color: #448899;
+  color: #ffffff;
+  border-radius: 5px;
+  font-size: 18px;
+}
+
+.none {
+  display: none;
 }
 
 @media (max-width: 1200px) {

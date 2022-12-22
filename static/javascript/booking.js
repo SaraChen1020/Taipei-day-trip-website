@@ -9,6 +9,12 @@ const paymentForm = document.querySelector(".payment-form");
 const confirmForm = document.querySelector(".confirm-form");
 const totalPrice = document.querySelector(".total-price");
 const submitButton = document.querySelector(".submit-button");
+const popUp = document.querySelector(".popup");
+const messageBox = document.querySelector(".message-box");
+const errorImage = document.querySelector(".error-image");
+const errorMessage = document.querySelector(".error-message");
+const normalMessage = document.querySelector(".normal-message");
+const closePop = document.querySelector(".close-pop");
 
 let sumOfPrice = 0;
 let primeNumber;
@@ -136,65 +142,6 @@ function loadDataToDom(result) {
   });
 }
 
-//預約行程按鈕
-submitButton.addEventListener("click", (event) => {
-  event.preventDefault();
-
-  // 取得 TapPay Fields 的 status
-  const tappayStatus = TPDirect.card.getTappayFieldsStatus();
-  // 確認是否可以 getPrime
-  if (tappayStatus.canGetPrime === false) {
-    alert("can not get prime");
-    return;
-  }
-
-  // Get prime
-  TPDirect.card.getPrime((result) => {
-    if (result.status !== 0) {
-      console.log("get prime error " + result.msg);
-      return;
-    }
-    console.log("get prime 成功，prime: " + result.card.prime);
-    primeNumber = result.card.prime;
-    // send prime to your server, to pay with Pay by Prime API .
-    // Pay By Prime Docs: https://docs.tappaysdk.com/tutorial/zh/back.html#pay-by-prime-api
-    submitOrder(primeNumber);
-  });
-});
-
-async function submitOrder(prime) {
-  const tripData = {
-    prime: prime,
-    order: {
-      price: sumOfPrice,
-      trip: trips,
-    },
-    contact: {
-      name: contactName.value,
-      email: contactEmail.value,
-      phone: contactPhone.value,
-    },
-  };
-  try {
-    const response = await fetch("/api/orders", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(tripData),
-    });
-    const data = await response.json();
-    const result = data.data;
-    if (result) {
-      // 下訂成功~~這邊可以做些顯示再跳轉
-      document.location.href = `/thankyou?number=${result.number}`;
-    } else {
-      // 下訂失敗~可能是聯絡資訊沒填好
-      console.log(data.message);
-    }
-  } catch (error) {
-    console.log("error", error);
-  }
-}
-
 // 無待預訂的行程
 function noData() {
   const noSchedule = document.createElement("div");
@@ -232,44 +179,100 @@ function overdueNotice(rightInformation) {
   rightInformation.appendChild(passTimeDiv);
 }
 
-// // 信用卡數字自動分隔及驗證
-// paymentNumber.addEventListener("keyup", function () {
-//   this.value = this.value.replace(/\s/g, "").replace(/(\d{4})(?=\d)/g, "$1 ");
-//   let regexOfCard = new RegExp(/^\d{16}$/);
-//   if (regexOfCard.test(this.value.replace(/\s*/g, ""))) {
-//     this.style.color = "black";
-//   } else {
-//     this.style.color = "red";
-//   }
-// });
+//預約行程按鈕
+submitButton.addEventListener("click", (event) => {
+  const passTime = document.querySelectorAll(".passtime-text");
 
-// // 月份自動加上/，驗證功能待研究
-// paymentDueDate.addEventListener("keyup", function () {
-//   this.value = this.value.replace(/^[0-9]{2}$/, "$& / "); //有成功補上 /
-//   // /^(0?[1-9]|1[0-2]){2}$/  驗證前兩個數字是月份
+  if (passTime.length !== 0) {
+    errorImage.classList.remove("none");
+    errorMessage.textContent = "購物車中有行程的預定時間已過期";
+    errorMessage.classList.remove("none");
+    popUp.classList.remove("none");
+    return;
+  }
 
-//   const today = new Date();
-//   const todayDate = today.toLocaleDateString().replace(/\//g, "");
-//   const nowMonth = Number(todayDate.substring(4, 6)); //當前月份MM
-//   const nowYear = Number(todayDate.substring(2, 4)); //當前年YY
+  event.preventDefault();
 
-//   //輸入的月份不可大於12，月份與年不可超過現在
-//   if (Number(this.value.substring(0, 2)) > 12) {
-//     this.style.color = "red";
-//   } else if (
-//     Number(this.value.substring(0, 2)) < nowMonth &&
-//     Number(this.value.substring(5, 7)) <= nowYear
-//   ) {
-//     this.style.color = "red";
-//   } else {
-//     this.style.color = "black";
-//   }
-// });
+  // 取得 TapPay Fields 的 status
+  const tappayStatus = TPDirect.card.getTappayFieldsStatus();
+  // 確認是否可以 getPrime
+  if (tappayStatus.canGetPrime === false) {
+    errorImage.classList.remove("none");
+    errorMessage.textContent = "信用卡付款資訊有誤，請重新確認";
+    errorMessage.classList.remove("none");
+    popUp.classList.remove("none");
+  }
 
-// paymentPassword.addEventListener("keyup", function () {
-//   this.value = this.value.replace(/[^\d]/g, "");
-// });
+  // Get prime
+  TPDirect.card.getPrime((result) => {
+    if (result.status !== 0) {
+      // console.log("get prime error " + result.msg);
+      return;
+    }
 
+    // 成功 Get prime
+    primeNumber = result.card.prime;
+    submitOrder(primeNumber);
+  });
+});
+
+// 連接付款資訊api
+async function submitOrder(prime) {
+  const tripData = {
+    prime: prime,
+    order: {
+      price: sumOfPrice,
+      trip: trips,
+    },
+    contact: {
+      name: contactName.value,
+      email: contactEmail.value,
+      phone: contactPhone.value,
+    },
+  };
+  try {
+    const response = await fetch("/api/orders", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(tripData),
+    });
+    const data = await response.json();
+    const result = data.data;
+    if (result) {
+      // 下訂成功
+      popUp.classList.remove("none");
+      normalMessage.textContent = `訂單建立成功！3秒後將自動跳轉`;
+      normalMessage.classList.remove("none");
+      closePop.classList.add("none");
+      messageBox.style.height = "120px";
+      setTimeout(`goThankYouPage(${result.number})`, 3000);
+    } else {
+      // 下訂失敗，聯絡資訊沒寫完整
+      errorImage.classList.remove("none");
+      errorMessage.textContent = data.message;
+      errorMessage.classList.remove("none");
+      popUp.classList.remove("none");
+    }
+  } catch (error) {
+    console.log("error", error);
+  }
+}
+
+// 關閉彈跳視窗
+closePop.addEventListener("click", () => {
+  popUp.classList.add("none");
+  errorImage.classList.add("none");
+  errorMessage.textContent = "";
+  errorMessage.classList.add("none");
+  normalMessage.textContent = "";
+  normalMessage.classList.add("none");
+});
+
+function goThankYouPage(number) {
+  document.location.href = `/thankyou?number=${number}`;
+}
+
+// TapPay設定
 TPDirect.setupSDK(
   126835,
   "app_SvbSbEqMZ5UenvDQM0Ef0zqc00eKp7khygHKMpt4inHEh3amDVQqahmT29D5",
@@ -302,15 +305,15 @@ TPDirect.card.setup({
     },
     // Styling ccv field
     "input.ccv": {
-      // 'font-size': '16px'
+      "font-size": "16px",
     },
     // Styling expiration-date field
     "input.expiration-date": {
-      // 'font-size': '16px'
+      "font-size": "16px",
     },
     // Styling card-number field
     "input.card-number": {
-      // 'font-size': '16px'
+      "font-size": "16px",
     },
     // style focus state
     ":focus": {
@@ -318,7 +321,7 @@ TPDirect.card.setup({
     },
     // style valid state
     ".valid": {
-      color: "green",
+      color: "black",
     },
     // style invalid state
     ".invalid": {
@@ -338,46 +341,4 @@ TPDirect.card.setup({
     beginIndex: 6,
     endIndex: 11,
   },
-});
-
-TPDirect.card.onUpdate(function (update) {
-  // update.canGetPrime === true
-  // --> you can call TPDirect.card.getPrime()
-  if (update.canGetPrime) {
-    // Enable submit Button to get prime.
-    // submitButton.removeAttribute('disabled')
-  } else {
-    // Disable submit Button to get prime.
-    // submitButton.setAttribute('disabled', true)
-  }
-
-  // cardTypes = ['mastercard', 'visa', 'jcb', 'amex', 'unknown']
-  if (update.cardType === "visa") {
-    // Handle card type visa.
-  }
-
-  // number 欄位是錯誤的
-  if (update.status.number === 2) {
-    // setNumberFormGroupToError()
-  } else if (update.status.number === 0) {
-    // setNumberFormGroupToSuccess()
-  } else {
-    // setNumberFormGroupToNormal()
-  }
-
-  if (update.status.expiry === 2) {
-    // setNumberFormGroupToError()
-  } else if (update.status.expiry === 0) {
-    // setNumberFormGroupToSuccess()
-  } else {
-    // setNumberFormGroupToNormal()
-  }
-
-  if (update.status.ccv === 2) {
-    // setNumberFormGroupToError()
-  } else if (update.status.ccv === 0) {
-    // setNumberFormGroupToSuccess()
-  } else {
-    // setNumberFormGroupToNormal()
-  }
 });

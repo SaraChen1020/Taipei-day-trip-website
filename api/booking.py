@@ -72,7 +72,7 @@ class Booking_Schedule(Resource):
             if result != None:
                 response = jsonify({
                     "error": True,
-                    "message": "此日期時間已有待預定的行程"
+                    "message": "此日期時間已有待預定的行程尚未付款"
                 })
                 response.status_code = "400"
                 return response
