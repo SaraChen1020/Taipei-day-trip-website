@@ -25,9 +25,9 @@ async function loadData() {
       document.location.href = "/";
     }
     if (result.status == "付款成功") {
-      orderMessage.textContent = "行程預定成功";
+      orderMessage.textContent = "行程預定成功(≧▽≦)";
     } else {
-      orderMessage.textContent = "行程預定失敗";
+      orderMessage.textContent = "行程預定失敗(｡ŏ_ŏ)";
     }
   } catch (error) {
     console.log("error", error);
