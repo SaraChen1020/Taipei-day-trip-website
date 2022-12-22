@@ -1,0 +1,170 @@
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1200px 1fr;
+  grid-template-rows: auto 104px;
+  grid-template-areas:
+    ". content ."
+    "footer footer footer";
+}
+
+.content {
+  grid-area: content;
+  margin-bottom: 0px;
+}
+
+.headline {
+  margin: 40px 110px 30px 110px;
+  font-weight: 700;
+  font-size: 19px;
+  color: #666666;
+}
+
+.schedule-section {
+  display: flex;
+  margin: 0 110px 40px 110px;
+  padding: 0 8px;
+  position: relative;
+}
+
+.photo {
+  width: 250px;
+  height: 200px;
+}
+
+.photo img {
+  width: inherit;
+  height: inherit;
+  object-fit: cover;
+}
+
+.attraction-information {
+  margin-left: 30px;
+}
+
+.attraction-title {
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 13px;
+  color: #448899;
+  height: 24px;
+  margin-bottom: 20px;
+}
+
+.booking-date,
+.booking-time,
+.booking-price,
+.booking-address {
+  display: flex;
+  font-weight: 700;
+  font-size: 16px;
+  color: #666666;
+  margin-bottom: 10px;
+}
+
+.booking-address b {
+  white-space: nowrap;
+}
+
+p {
+  font-weight: 500;
+  margin: 0;
+}
+
+.line {
+  border-bottom: 1px solid #e8e8e8;
+  margin-bottom: 40px;
+}
+
+.order-form,
+.contact-form {
+  margin: 0 110px 40px 110px;
+  color: #666666;
+}
+
+.order-title,
+.contact-title {
+  display: flex;
+  align-items: center;
+  height: 24px;
+  font-weight: 700;
+  font-size: 19px;
+  line-height: 16px;
+  margin-bottom: 20px;
+}
+
+.order-status,
+.order-payment,
+.contact-name,
+.contact-email,
+.contact-phone {
+  height: 38px;
+  font-weight: 500;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.order-status-text {
+  color: rgb(76, 175, 76);
+}
+
+@media (max-width: 1200px) {
+  .topic {
+    margin-left: 10px;
+  }
+  .container {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "content"
+      "footer";
+  }
+
+  .attraction-information {
+    margin-left: 15px;
+  }
+
+  .headline,
+  .schedule-section,
+  .contact-form,
+  .order-form {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+}
+
+@media (max-width: 600px) {
+  .schedule-section {
+    display: block;
+  }
+
+  .photo {
+    width: 100%;
+  }
+
+  .headline,
+  .schedule-section,
+  .contact-form,
+  .order-form {
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 0;
+  }
+
+  .attraction-information {
+    margin-left: 0;
+  }
+
+  .attraction-title {
+    margin-top: 30px;
+  }
+
+  .no-schedule {
+    margin: 0 10px 40px 10px;
+  }
+}
