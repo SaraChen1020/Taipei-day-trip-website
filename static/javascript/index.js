@@ -3,12 +3,20 @@ const search = document.querySelector(".search");
 const searchBtn = document.querySelector(".search-btn");
 const noResult = document.querySelector(".no-result");
 const footer = document.querySelector(".footer");
+const loadingImg = document.querySelector(".loading");
 let pageLoading = false;
 
 window.onload = () => {
   checkSigninStatus();
   getData();
 };
+
+function completeLoading() {
+  if (document.readyState == "complete") {
+    loadingImg.classList.add("none");
+  }
+}
+document.onreadystatechange = completeLoading;
 
 //初始畫面
 async function getData(page = 0, keyword = "") {
