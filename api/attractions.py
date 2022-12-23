@@ -68,7 +68,7 @@ class Search_Attractions(Resource):
             connection = db_Connect.dbConnect.get_connection()
             cursor = connection.cursor()
             cursor.execute("SELECT * FROM attractions WHERE id = %s", [attractionId])
-            result=cursor.fetchone()
+            result = cursor.fetchone()
             if result != None:
                 response = jsonify({
                     "data": {

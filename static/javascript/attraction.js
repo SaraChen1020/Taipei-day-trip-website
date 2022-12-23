@@ -16,9 +16,13 @@ const bookingText = document.querySelector(".booking-text");
 let slideIndex = 0;
 let path = location.pathname;
 
+const today = new Date();
+const todayDate = today.toLocaleDateString().replace(/\//g, "-");
+
 window.onload = () => {
   checkSigninStatus();
   getData();
+  dateInput.min = todayDate;
 };
 
 async function getData() {

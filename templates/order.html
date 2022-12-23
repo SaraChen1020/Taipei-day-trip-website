@@ -1,0 +1,67 @@
+{% extends "index.html" %}
+<!-- -->
+{% block head %}
+<link rel="stylesheet" type="text/css" href="/static/css/order.css" />
+<title>我的訂單內容</title>
+{% endblock %}
+<!-- -->
+{% block content %}
+<div class="container">
+  <div class="content">
+    <div class="headline">
+      <div class="username"></div>
+      <div class="text-note"></div>
+    </div>
+    <div class="schedule-content">
+      <!-- <div class="schedule-section">
+        <div class="photo">
+          <img
+            src="https://www.travel.taipei/d_upload_ttn/sceneadmin/pic/11003387.jpg"
+          />
+        </div>
+
+        <div class="attraction-information">
+          <div class="attraction-title">台北一日遊：平安鐘</div>
+          <div class="booking-date">
+            日期：
+            <p>2021-04-23</p>
+          </div>
+          <div class="booking-time">
+            時間：
+            <p>早上 9 點到下午 4 點</p>
+          </div>
+          <div class="booking-price">
+            費用：
+            <p>新台幣 2000 元</p>
+          </div>
+          <div class="booking-address">
+            <b>地點：</b>
+            <p>臺北市 大安區忠孝東路4段</p>
+          </div>
+        </div>
+      </div> -->
+    </div>
+
+    <div class="order-form">
+      <div class="order-title">訂單狀態</div>
+      <div class="order-status">
+        <p>付款狀態：</p>
+        <!-- <p class="order-status-text">付款成功</p> -->
+      </div>
+      <div class="order-payment"></div>
+    </div>
+    <div class="line"></div>
+    <div class="contact-form">
+      <div class="contact-title">訂單聯絡資訊</div>
+      <div class="contact-name"></div>
+      <div class="contact-email"></div>
+      <div class="contact-phone"></div>
+    </div>
+  </div>
+
+  {% endblock %}
+  <!-- -->
+  {% block script %}
+</div>
+<script src="/static/javascript/order.js"></script>
+{% endblock %}

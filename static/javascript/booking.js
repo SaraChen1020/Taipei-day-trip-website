@@ -4,12 +4,21 @@ const information = document.querySelector(".information");
 const contactForm = document.querySelector(".contact-form");
 const contactName = document.querySelector(".contact-name");
 const contactEmail = document.querySelector(".contact-email");
+const contactPhone = document.querySelector(".contact-phone");
 const paymentForm = document.querySelector(".payment-form");
-const paymentNumber = document.querySelector(".payment-number");
-const paymentDueDate = document.querySelector(".payment-duedate");
-const paymentPassword = document.querySelector(".payment-password");
 const confirmForm = document.querySelector(".confirm-form");
 const totalPrice = document.querySelector(".total-price");
+const submitButton = document.querySelector(".submit-button");
+const popUp = document.querySelector(".popup");
+const messageBox = document.querySelector(".message-box");
+const errorImage = document.querySelector(".error-image");
+const errorMessage = document.querySelector(".error-message");
+const normalMessage = document.querySelector(".normal-message");
+const closePop = document.querySelector(".close-pop");
+
+let sumOfPrice = 0;
+let primeNumber;
+const trips = [];
 
 window.onload = async () => {
   await checkSigninStatus();
@@ -38,7 +47,6 @@ async function getData() {
 
 // 待預定行程畫面呈現
 function loadDataToDom(result) {
-  let sumOfPrice = 0;
   const today = new Date();
   const todayDate = Number(today.toLocaleDateString().replace(/\//g, ""));
   const nowTime = Number(today.getHours());
@@ -99,7 +107,7 @@ function loadDataToDom(result) {
     if (oderDate < todayDate) {
       overdueNotice(rightInformation);
     }
-    if (oderDate == todayDate && nowTime > orderTime) {
+    if (oderDate == todayDate && nowTime >= orderTime) {
       overdueNotice(rightInformation);
     }
 
@@ -110,8 +118,17 @@ function loadDataToDom(result) {
 
     scheduleContent.appendChild(sectionDiv);
     scheduleContent.appendChild(lineDiv);
+
     sumOfPrice += result[i].price;
+
+    const attraction = {
+      attraction: result[i].attraction,
+      date: result[i].date,
+      time: result[i].time,
+    };
+    trips.push(attraction);
   }
+
   totalPrice.textContent = `總價：新台幣 ${sumOfPrice} 元`;
 
   const deleteButtons = document.querySelectorAll(".schedule-delete");
@@ -162,23 +179,166 @@ function overdueNotice(rightInformation) {
   rightInformation.appendChild(passTimeDiv);
 }
 
-// 信用卡數字自動分隔及驗證
-paymentNumber.addEventListener("keyup", function () {
-  this.value = this.value.replace(/\s/g, "").replace(/(\d{4})(?=\d)/g, "$1 ");
-  let regexOfCard = new RegExp(/^\d{16}$/);
-  if (regexOfCard.test(this.value.replace(/\s*/g, ""))) {
-    this.style.color = "black";
-  } else {
-    this.style.color = "red";
+//預約行程按鈕
+submitButton.addEventListener("click", (event) => {
+  const passTime = document.querySelectorAll(".passtime-text");
+
+  if (passTime.length !== 0) {
+    errorImage.classList.remove("none");
+    errorMessage.textContent = "購物車中有行程的預定時間已過期";
+    errorMessage.classList.remove("none");
+    popUp.classList.remove("none");
+    return;
   }
+
+  event.preventDefault();
+
+  // 取得 TapPay Fields 的 status
+  const tappayStatus = TPDirect.card.getTappayFieldsStatus();
+  // 確認是否可以 getPrime
+  if (tappayStatus.canGetPrime === false) {
+    errorImage.classList.remove("none");
+    errorMessage.textContent = "信用卡付款資訊有誤，請重新確認";
+    errorMessage.classList.remove("none");
+    popUp.classList.remove("none");
+  }
+
+  // Get prime
+  TPDirect.card.getPrime((result) => {
+    if (result.status !== 0) {
+      // console.log("get prime error " + result.msg);
+      return;
+    }
+
+    // 成功 Get prime
+    primeNumber = result.card.prime;
+    submitOrder(primeNumber);
+  });
 });
 
-// 月份自動加上/，驗證功能待研究
-paymentDueDate.addEventListener("keyup", function () {
-  this.value = this.value.replace(/^[0-9]{2}$/, "$& / "); //有成功補上 /
-  // /^(0?[1-9]|1[0-2]){2}$/  驗證前兩個數字是月份
+// 連接付款資訊api
+async function submitOrder(prime) {
+  const tripData = {
+    prime: prime,
+    order: {
+      price: sumOfPrice,
+      trip: trips,
+    },
+    contact: {
+      name: contactName.value,
+      email: contactEmail.value,
+      phone: contactPhone.value,
+    },
+  };
+  try {
+    const response = await fetch("/api/orders", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(tripData),
+    });
+    const data = await response.json();
+    const result = data.data;
+    if (result) {
+      // 下訂成功
+      popUp.classList.remove("none");
+      normalMessage.textContent = `訂單建立成功！3秒後將自動跳轉`;
+      normalMessage.classList.remove("none");
+      closePop.classList.add("none");
+      messageBox.style.height = "120px";
+      setTimeout(`goThankYouPage(${result.number})`, 3000);
+    } else {
+      // 下訂失敗，聯絡資訊沒寫完整
+      errorImage.classList.remove("none");
+      errorMessage.textContent = data.message;
+      errorMessage.classList.remove("none");
+      popUp.classList.remove("none");
+    }
+  } catch (error) {
+    console.log("error", error);
+  }
+}
+
+// 關閉彈跳視窗
+closePop.addEventListener("click", () => {
+  popUp.classList.add("none");
+  errorImage.classList.add("none");
+  errorMessage.textContent = "";
+  errorMessage.classList.add("none");
+  normalMessage.textContent = "";
+  normalMessage.classList.add("none");
 });
 
-paymentPassword.addEventListener("keyup", function () {
-  this.value = this.value.replace(/[^\d]/g, "");
+function goThankYouPage(number) {
+  document.location.href = `/thankyou?number=${number}`;
+}
+
+// TapPay設定
+TPDirect.setupSDK(
+  126835,
+  "app_SvbSbEqMZ5UenvDQM0Ef0zqc00eKp7khygHKMpt4inHEh3amDVQqahmT29D5",
+  "sandbox"
+);
+
+let fields = {
+  number: {
+    // css selector
+    element: "#card-number",
+    placeholder: "**** **** **** ****",
+  },
+  expirationDate: {
+    // DOM object
+    element: document.getElementById("card-expiration-date"),
+    placeholder: "MM / YY",
+  },
+  ccv: {
+    element: "#card-ccv",
+    placeholder: "CCV",
+  },
+};
+
+TPDirect.card.setup({
+  fields: fields,
+  styles: {
+    // Style all elements
+    input: {
+      color: "gray",
+    },
+    // Styling ccv field
+    "input.ccv": {
+      "font-size": "16px",
+    },
+    // Styling expiration-date field
+    "input.expiration-date": {
+      "font-size": "16px",
+    },
+    // Styling card-number field
+    "input.card-number": {
+      "font-size": "16px",
+    },
+    // style focus state
+    ":focus": {
+      // color: "black",
+    },
+    // style valid state
+    ".valid": {
+      color: "black",
+    },
+    // style invalid state
+    ".invalid": {
+      color: "red",
+    },
+    // Media queries
+    // Note that these apply to the iframe, not the root window.
+    "@media screen and (max-width: 400px)": {
+      input: {
+        color: "red",
+      },
+    },
+  },
+  // 此設定會顯示卡號輸入正確後，會顯示前六後四碼信用卡卡號
+  isMaskCreditCardNumber: true,
+  maskCreditCardNumberRange: {
+    beginIndex: 6,
+    endIndex: 11,
+  },
 });
