@@ -2,13 +2,14 @@
   position: absolute;
   background-color: #ffffff;
   background-image: url("/static/images/loading.gif");
-  z-index: 500;
+  z-index: 9;
   background-size: 200px;
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: top;
   width: 100%;
-  height: 100%;
-  top: 50%;
+  height: 400px;
+  /* top: 50%; */
+  bottom: 400px;
   left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -141,6 +142,7 @@
 }
 
 .container {
+  position: relative;
   display: grid;
   grid-template-columns: 1fr 1200px 1fr;
   grid-template-rows: auto 104px;

@@ -5,18 +5,22 @@ const noResult = document.querySelector(".no-result");
 const footer = document.querySelector(".footer");
 const loadingImg = document.querySelector(".loading");
 let pageLoading = false;
+let i = 0;
 
 window.onload = () => {
   checkSigninStatus();
   getData();
 };
 
-function completeLoading() {
-  if (document.readyState == "complete") {
-    loadingImg.classList.add("none");
-  }
-}
-document.onreadystatechange = completeLoading;
+// function completeLoading() {
+//   if (document.readyState == "complete") {
+//     loadingImg.classList.add("none");
+//   }
+// }
+// document.onreadystatechange = completeLoading;
+
+const imgg = new Image();
+console.log(imgg);
 
 //初始畫面
 async function getData(page = 0, keyword = "") {
@@ -84,6 +88,7 @@ function observe(page, keyword) {
 
 //圖文版面
 function addDataToDom(result, length) {
+  loadingImg.classList.remove("none");
   for (let i = 0; i < length; i++) {
     let tag_a = document.createElement("a");
     tag_a.setAttribute("href", `/attraction/${result[i].id}`);
@@ -91,8 +96,10 @@ function addDataToDom(result, length) {
     let picDiv = document.createElement("div");
     picDiv.className = "pic";
 
-    let img = document.createElement("img");
-    img.setAttribute("src", `${result[i].images[0]}`);
+    // let img = document.createElement("img");
+    let img = new Image();
+    img.src = `${result[i].images[0]}`;
+    // img.setAttribute("src", `${result[i].images[0]}`);
 
     let attractionNameDiv = document.createElement("div");
     attractionNameDiv.className = "attraction-name";
@@ -120,6 +127,17 @@ function addDataToDom(result, length) {
 
     document.querySelector(".gallery").appendChild(tag_a);
   }
+
+  const images = document.querySelectorAll("img");
+
+  images.forEach((item, index) => {
+    item.addEventListener("load", () => {
+      i += 1;
+      if (images.length === i) {
+        loadingImg.classList.add("none");
+      }
+    });
+  });
 }
 
 // 分類選單載入
