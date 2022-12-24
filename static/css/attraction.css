@@ -37,6 +37,16 @@
   height: inherit;
 }
 
+.loading {
+  background-color: #ffffff;
+  background-image: url("/static/images/loading.gif");
+  background-size: 100px;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: inherit;
+  height: inherit;
+}
+
 .slide {
   width: inherit;
   height: inherit;
