@@ -39,13 +39,15 @@ class Booking_Schedule(Resource):
 
         tz = timezone(timedelta(hours=+8))
         taiwan_now = datetime.now(tz)
-        today = taiwan_now.year + taiwan_now.month + taiwan_now.day
-        select_date=int(date[0:4])+int(date[5:7])+int(date[8:10])
+        today = str(taiwan_now.year) + str(taiwan_now.month) + str(taiwan_now.day)
+        select_date = str(date[0:4]) + str(date[5:7]) + str(date[8:10])
+        print(today)
+        print(select_date)
         now_time = taiwan_now.hour
         select_time = 9
         if time == "afternoon":
             select_time = 14
-            
+        
         if select_date < today:
             response = jsonify({
                 "error": True,
