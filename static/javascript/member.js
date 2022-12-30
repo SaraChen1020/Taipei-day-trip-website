@@ -16,11 +16,15 @@ const errorImage = document.querySelector(".error-image");
 const errorMessage = document.querySelector(".error-message");
 const normalMessage = document.querySelector(".normal-message");
 const closePop = document.querySelector(".close-pop");
+const loadingIcon = document.querySelector(".loading");
+const container = document.querySelector(".container");
 
 window.onload = async () => {
   await checkSigninStatus();
   if (signinStatus) {
-    loadData();
+    await loadData();
+    loadingIcon.classList.add("none");
+    container.classList.remove("none");
   } else {
     document.location.href = "/";
     console.log("未登入");
@@ -35,11 +39,19 @@ async function loadData() {
   email.textContent = result.email;
   userNameInput.value = result.name;
   userName.textContent = result.name;
-  loadOrder(result);
+
+  if (result.order.length !== 0) {
+    loadOrder(result.order);
+  } else {
+    const orderDiv = document.createElement("div");
+    orderDiv.classList.add("order-number");
+    orderDiv.textContent = "查無歷史訂單";
+    orderDiv.style.color = "#fa5252";
+    orderSection.appendChild(orderDiv);
+  }
 }
 
-function loadOrder(result) {
-  const orders = result.order;
+function loadOrder(orders) {
   orders.forEach((item) => {
     const orderDiv = document.createElement("div");
     orderDiv.classList.add("order-number");
