@@ -15,6 +15,8 @@ const errorImage = document.querySelector(".error-image");
 const errorMessage = document.querySelector(".error-message");
 const normalMessage = document.querySelector(".normal-message");
 const closePop = document.querySelector(".close-pop");
+const loadingIcon = document.querySelector(".loading");
+const container = document.querySelector(".container");
 
 let sumOfPrice = 0;
 let primeNumber;
@@ -38,15 +40,19 @@ async function getData() {
   const data = await response.json();
   const result = data.data;
   if (result != null) {
-    loadDataToDom(result);
+    await loadDataToDom(result);
     information.classList.remove("none");
+    loadingIcon.classList.add("none");
+    container.classList.remove("none");
   } else {
-    noData();
+    await noData();
+    loadingIcon.classList.add("none");
+    container.classList.remove("none");
   }
 }
 
 // 待預定行程畫面呈現
-function loadDataToDom(result) {
+async function loadDataToDom(result) {
   const today = new Date();
   const todayDate = Number(today.toLocaleDateString().replace(/\//g, ""));
   const nowTime = Number(today.getHours());
@@ -143,7 +149,7 @@ function loadDataToDom(result) {
 }
 
 // 無待預訂的行程
-function noData() {
+async function noData() {
   const noSchedule = document.createElement("div");
   noSchedule.className = "no-schedule";
   noSchedule.textContent = "目前沒有任何待預訂的行程。";
