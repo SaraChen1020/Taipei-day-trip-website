@@ -7,7 +7,6 @@ const noResult = document.querySelector(".no-result");
 const footer = document.querySelector(".footer");
 const loadingImg = document.querySelector(".loading");
 let pageLoading = false;
-let i = 0;
 
 window.onload = async () => {
   await checkSigninStatus();
@@ -132,7 +131,7 @@ function removeLoading() {
     const attractionImg = item.firstElementChild;
     attractionImg.addEventListener("load", () => {
       i += 1;
-      if (i == 12) {
+      if (i == picBox.length) {
         loadingIcon.classList.add("none");
         container.classList.remove("none");
       }

@@ -49,6 +49,7 @@ a {
   display: flex;
   flex: auto;
   justify-content: flex-end;
+  align-items: center;
 }
 
 .frame-1 {
@@ -59,19 +60,27 @@ a {
   color: #666666;
   font-weight: 500;
   line-height: 13px;
-  margin: 20px 10px;
   height: 14px;
 }
 
 .schedule {
   width: 64px;
   cursor: pointer;
+  margin-right: 10px;
+  padding: 10px;
+  box-sizing: unset;
 }
 
-.sign,
-.signout {
+.sign {
   width: 71px;
   cursor: pointer;
+  padding: 10px;
+}
+
+.schedule:hover,
+.sign:hover {
+  background: #e8e8e8;
+  border-radius: 3px;
 }
 
 .member-icon {
@@ -108,8 +117,8 @@ a {
 
 .member-info-site:hover,
 .signout:hover {
-  background-color: #666666;
-  color: white;
+  color: #666666;
+  background-color: #d8d5d5;
   border-radius: 3px;
 }
 
