@@ -1,8 +1,5 @@
 const loadingIcon = document.querySelector(".loading");
-const topArea = document.querySelector(".top");
-const visionArea = document.querySelector(".vision");
 const container = document.querySelector(".container");
-
 const categories = document.querySelector(".categories");
 const search = document.querySelector(".search");
 const searchBtn = document.querySelector(".search-btn");
@@ -137,8 +134,6 @@ function removeLoading() {
       i += 1;
       if (i == 12) {
         loadingIcon.classList.add("none");
-        topArea.classList.remove("none");
-        visionArea.classList.remove("none");
         container.classList.remove("none");
       }
     });
