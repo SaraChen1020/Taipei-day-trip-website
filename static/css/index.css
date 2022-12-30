@@ -1,4 +1,4 @@
-.loading {
+/* .loading {
   position: absolute;
   background-color: #ffffff;
   background-image: url("/static/images/loading.gif");
@@ -8,11 +8,11 @@
   background-position: top;
   width: 100%;
   height: 400px;
-  /* top: 50%; */
+  top: 50%;
   bottom: 400px;
   left: 50%;
   transform: translate(-50%, -50%);
-}
+} */
 
 .vision {
   display: flex;
@@ -168,6 +168,11 @@
   border: 1px solid #e8e8e8;
   position: relative;
   z-index: 0;
+  overflow: hidden;
+}
+
+.pic-box {
+  overflow: hidden;
 }
 
 .pic img {
@@ -176,6 +181,15 @@
   border-radius: 5px;
   object-fit: cover; /*防止圖片變形*/
   display: block; /*移除圖片下方的留白*/
+  transition: all 0.5s;
+}
+
+.pic img:hover {
+  transform: scale(1.1);
+}
+
+.pic:hover {
+  box-shadow: 2px 2px 9px #aabbcc;
 }
 
 .attraction-name {

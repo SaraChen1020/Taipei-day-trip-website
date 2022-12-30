@@ -321,6 +321,11 @@ input[type="date"]::-webkit-datetime-edit-fields-wrapper {
   text-align: center;
 }
 
+.booking-button:hover {
+  color: #000;
+  box-shadow: 1px 1px 9px #8c9cac;
+}
+
 .booking-text {
   display: flex;
   align-items: center;

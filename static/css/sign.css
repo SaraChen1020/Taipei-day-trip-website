@@ -30,6 +30,7 @@ input {
 
 a {
   text-decoration: none;
+  color: #666666;
 }
 
 .topic {
@@ -71,6 +72,57 @@ a {
 .signout {
   width: 71px;
   cursor: pointer;
+}
+
+.member-icon {
+  cursor: pointer;
+  position: relative;
+  width: 30px;
+  height: 30px;
+  margin: 12.5px 10px;
+  background-image: url("/static/images/user.png");
+  background-repeat: no-repeat;
+  background-size: 30px;
+}
+
+.member-list {
+  background-color: white;
+  position: absolute;
+  top: 31px;
+  text-align: center;
+  right: 0.5px;
+  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 50%);
+  border-radius: 3px;
+}
+
+.member-info-site {
+  padding: 5px 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  height: 20px;
+  width: 80px;
+  justify-content: center;
+  box-sizing: unset;
+}
+
+.member-info-site:hover,
+.signout:hover {
+  background-color: #666666;
+  color: white;
+  border-radius: 3px;
+}
+
+.signout {
+  cursor: pointer;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 4px;
+  height: 20px;
+  width: 80px;
+  box-sizing: unset;
 }
 
 .white-area {
