@@ -1,4 +1,4 @@
-/* .loading {
+.loading {
   position: absolute;
   background-color: #ffffff;
   background-image: url("/static/images/loading.gif");
@@ -12,7 +12,7 @@
   bottom: 400px;
   left: 50%;
   transform: translate(-50%, -50%);
-} */
+}
 
 .vision {
   display: flex;
@@ -237,6 +237,10 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
+}
+
+.none {
+  display: none;
 }
 
 @media (max-width: 1200px) {

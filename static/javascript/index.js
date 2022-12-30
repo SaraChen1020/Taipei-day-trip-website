@@ -1,3 +1,8 @@
+const loadingIcon = document.querySelector(".loading");
+const topArea = document.querySelector(".top");
+const visionArea = document.querySelector(".vision");
+const container = document.querySelector(".container");
+
 const categories = document.querySelector(".categories");
 const search = document.querySelector(".search");
 const searchBtn = document.querySelector(".search-btn");
@@ -7,9 +12,10 @@ const loadingImg = document.querySelector(".loading");
 let pageLoading = false;
 let i = 0;
 
-window.onload = () => {
-  checkSigninStatus();
-  getData();
+window.onload = async () => {
+  await checkSigninStatus();
+  await getData();
+  removeLoading();
 };
 
 //初始畫面
@@ -119,6 +125,24 @@ function addDataToDom(result, length) {
 
     document.querySelector(".gallery").appendChild(tag_a);
   }
+}
+
+// 移除載入中圖示
+function removeLoading() {
+  const picBox = document.querySelectorAll(".pic-box");
+  let i = 0;
+  picBox.forEach((item) => {
+    const attractionImg = item.firstElementChild;
+    attractionImg.addEventListener("load", () => {
+      i += 1;
+      if (i == 12) {
+        loadingIcon.classList.add("none");
+        topArea.classList.remove("none");
+        visionArea.classList.remove("none");
+        container.classList.remove("none");
+      }
+    });
+  });
 }
 
 // 分類選單載入

@@ -11,8 +11,9 @@
     {% endblock %}
   </head>
   <body>
+    <div class="loading"></div>
     <div class="dark none"></div>
-    <div class="top">
+    <div class="top none">
       <div class="navigation-bar">
         <a href="/"><div class="topic">台北一日遊</div> </a>
         <div class="frame-2">
@@ -101,7 +102,7 @@
     <div class="white-area"></div>
 
     {% block content %}
-    <div class="vision">
+    <div class="vision none">
       <div class="slogan">
         <div class="slogan-1">輕鬆享受台北一日悠閒</div>
         <div class="slogan-2">探索每個角落，體驗城市的深度旅遊行程</div>
@@ -120,7 +121,7 @@
       </div>
     </div>
     <div class="no-result"></div>
-    <div class="container">
+    <div class="container none">
       <div class="gallery">
         <!-- <a href="/attraction/1">
           <div class="pic">
@@ -136,7 +137,6 @@
         </a> -->
       </div>
       {% endblock %}
-      <!-- <div class="loading"></div> -->
       <div class="footer">
         <div>COPYRIGHT © 2022 台北一日遊</div>
       </div>
