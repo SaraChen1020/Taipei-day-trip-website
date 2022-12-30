@@ -1,5 +1,8 @@
 const dark = document.querySelector(".dark");
 const sign = document.querySelector(".sign");
+const memberIcon = document.querySelector(".member-icon");
+const memberList = document.querySelector(".member-list");
+const memberInfoSite = document.querySelector(".member-info-site");
 const signout = document.querySelector(".signout");
 const signin = document.querySelector(".signin");
 const signup = document.querySelector(".signup");
@@ -26,12 +29,12 @@ async function checkSigninStatus() {
     if (result != null) {
       memberName = result.name;
       memberEmail = result.email;
-      signout.classList.remove("none");
+      memberIcon.classList.remove("none");
       sign.classList.add("none");
       signinStatus = true;
     } else {
       sign.classList.remove("none");
-      signout.classList.add("none");
+      memberIcon.classList.add("none");
     }
   } catch (error) {
     console.log("error", error);
@@ -117,6 +120,23 @@ signoutButton.addEventListener("click", async () => {
     console.log("error", error);
   }
 });
+
+function showMemberList() {
+  memberList.classList.remove("none");
+}
+
+function closeMemberList() {
+  memberList.classList.add("none");
+}
+
+memberIcon.onmousemove = showMemberList;
+memberInfoSite.onmousemove = showMemberList;
+memberInfoSite.onmouseout = closeMemberList;
+signout.onmousemove = showMemberList;
+signout.onmouseout = closeMemberList;
+
+memberIcon.addEventListener("click", showMemberList);
+document.addEventListener("click", closeMemberList, true);
 
 // 驗證資料格式
 function checkValid(element) {
