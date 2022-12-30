@@ -1,9 +1,6 @@
 from flask import *
 from flask_restful import Api
-from api.attractions import Attractions,Search_Attractions,Categories
-from api.members import Members_Signup,Members_Auth
-from api.booking import Booking_Schedule
-from api.orders import Order_Schedule,Order_Get_Schedule
+from api.routes import api_routes
 from flask_bcrypt import Bcrypt
 
 app = Flask(__name__)
@@ -14,16 +11,7 @@ app.config["JSON_SORT_KEYS"]=False
 
 api=Api(app)
 bcrypt = Bcrypt(app)
-
-api.add_resource(Attractions, "/api/attractions")
-api.add_resource(Search_Attractions, "/api/attraction/<attractionId>" )
-api.add_resource(Categories, "/api/categories")
-api.add_resource(Members_Signup, "/api/user")
-api.add_resource(Members_Auth, "/api/user/auth")
-api.add_resource(Booking_Schedule, "/api/booking")
-api.add_resource(Order_Schedule, "/api/orders")
-api.add_resource(Order_Get_Schedule, "/api/order/<orderNumber>")
-
+api_routes(api)
 
 # Pages
 @app.route("/")
@@ -41,5 +29,8 @@ def thankyou():
 @app.route("/order/<orderNumber>")
 def order(orderNumber):
 	return render_template("order.html")
+@app.route("/member")
+def member():
+	return render_template("member.html")
 
-app.run(host = "0.0.0.0", port = 3000, debug = True)
+app.run(host = "0.0.0.0", port = 3000, debug=True)

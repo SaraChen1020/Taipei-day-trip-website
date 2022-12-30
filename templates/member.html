@@ -1,0 +1,81 @@
+{% extends "index.html" %}
+<!-- -->
+{% block head %}
+<link rel="stylesheet" type="text/css" href="/static/css/member.css" />
+<title>會員專區</title>
+{% endblock %}
+<!-- -->
+{% block content %}
+<div class="container">
+  <div class="content">
+    <div class="member-info">
+      <div class="member-bar">
+        <div class="member-title">會 員 基 本 資 料</div>
+      </div>
+      <div class="member-information">
+        <div class="member-card">
+          <img src="/static/images/member-card.png" />
+        </div>
+        <div class="member-data">
+          <div class="member-email">
+            會員信箱：
+            <div class="normal-email"></div>
+          </div>
+          <div class="member-name">
+            會員姓名：
+            <input type="text" value="" class="mb-name none" name="name" />
+            <div class="normal-name"></div>
+          </div>
+
+          <div class="member-password none">
+            原密碼：
+            <input
+              type="password"
+              class="mb-password"
+              name="password"
+              placeholder="請輸入6~12碼英數字"
+            />
+          </div>
+          <div class="member-password none">
+            新密碼：
+            <input
+              type="password"
+              class="mb-password-new"
+              name="password"
+              placeholder="請輸入6~12碼英數字"
+            />
+          </div>
+          <div class="membername-revise button-style"><div>修改姓名</div></div>
+          <div class="membername-submit button-style none">
+            <div>送出確認</div>
+          </div>
+          <div class="password-revise button-style"><div>修改密碼</div></div>
+          <div class="password-submit button-style none">
+            <div>送出確認</div>
+          </div>
+        </div>
+      </div>
+      <div class="member-bar">
+        <div class="member-title">歷 史 訂 單 編 號</div>
+      </div>
+      <div class="order">
+        <!-- <div class="order-number">2022122613122456</div> -->
+      </div>
+    </div>
+  </div>
+  <div class="popup none">
+    <div class="popup-decorator-bar"></div>
+    <div class="message-box">
+      <div class="error-image none"></div>
+      <div class="error-message none"></div>
+      <div class="normal-message none"></div>
+    </div>
+    <div class="close-pop">關閉視窗</div>
+  </div>
+
+  {% endblock %}
+  <!-- -->
+  {% block script %}
+</div>
+<script src="/static/javascript/member.js"></script>
+{% endblock %}
