@@ -31,6 +31,9 @@
   text-align: center;
 }
 
+.order-page {
+  color: #fa5252;
+}
 @media (max-width: 1200px) {
   .topic {
     margin-left: 10px;

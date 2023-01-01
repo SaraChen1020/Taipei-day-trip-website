@@ -135,9 +135,6 @@ memberInfoSite.onmouseout = closeMemberList;
 signout.onmousemove = showMemberList;
 signout.onmouseout = closeMemberList;
 
-memberIcon.addEventListener("click", showMemberList);
-document.addEventListener("click", closeMemberList, true);
-
 // 驗證資料格式
 function checkValid(element) {
   let checkRule = element.name;

@@ -310,7 +310,8 @@ p {
   .schedule-section,
   .contact-form,
   .payment-form,
-  .confirm-form {
+  .confirm-form,
+  .no-schedule {
     margin-left: 5px;
     margin-right: 5px;
   }
