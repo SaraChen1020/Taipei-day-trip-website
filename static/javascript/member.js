@@ -43,6 +43,7 @@ async function loadData() {
   if (result.order.length !== 0) {
     loadOrder(result.order);
   } else {
+    orderSection.innerHTML = "";
     const orderDiv = document.createElement("div");
     orderDiv.classList.add("order-number");
     orderDiv.textContent = "查無歷史訂單";
@@ -52,6 +53,7 @@ async function loadData() {
 }
 
 function loadOrder(orders) {
+  orderSection.innerHTML = "";
   orders.forEach((item) => {
     const orderDiv = document.createElement("div");
     orderDiv.classList.add("order-number");
