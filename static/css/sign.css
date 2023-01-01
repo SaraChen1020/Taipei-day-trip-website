@@ -66,7 +66,6 @@ a {
 .schedule {
   width: 64px;
   cursor: pointer;
-  margin-right: 10px;
   padding: 10px;
   box-sizing: unset;
 }
@@ -75,6 +74,7 @@ a {
   width: 71px;
   cursor: pointer;
   padding: 10px;
+  box-sizing: unset;
 }
 
 .schedule:hover,
