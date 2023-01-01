@@ -54,7 +54,12 @@ async function getData() {
 // 待預定行程畫面呈現
 async function loadDataToDom(result) {
   const today = new Date();
-  const todayDate = Number(today.toLocaleDateString().replace(/\//g, ""));
+
+  const year = today.getFullYear();
+  let month = today.getMonth() + 1;
+  let date = today.getDate();
+  const todayDate =
+    year + (month < 10 ? "0" : "") + month + (date < 10 ? "0" : "") + date;
   const nowTime = Number(today.getHours());
 
   for (let i = 0; i < result.length; i++) {
@@ -63,6 +68,7 @@ async function loadDataToDom(result) {
         ? "早上 9 點到下午 1 點"
         : "下午 2 點到晚上 6 點";
     const oderDate = Number(result[i].date.replace(/-/g, ""));
+
     let orderTime = result[i].time == "morning" ? 9 : 14;
 
     const sectionDiv = document.createElement("div");
@@ -110,10 +116,10 @@ async function loadDataToDom(result) {
     bookingAddress.innerHTML = `<b>地點：</b><p>${result[i].attraction.address}</p>`;
     rightInformation.appendChild(bookingAddress);
 
-    if (oderDate < todayDate) {
+    if (oderDate < Number(todayDate)) {
       overdueNotice(rightInformation);
     }
-    if (oderDate == todayDate && nowTime >= orderTime) {
+    if (oderDate == Number(todayDate) && nowTime >= orderTime) {
       overdueNotice(rightInformation);
     }
 

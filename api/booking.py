@@ -39,10 +39,8 @@ class Booking_Schedule(Resource):
 
         tz = timezone(timedelta(hours=+8))
         taiwan_now = datetime.now(tz)
-        today = str(taiwan_now.year) + str(taiwan_now.month) + str(taiwan_now.day)
+        today = taiwan_now.date().strftime("%Y%m%d")
         select_date = str(date[0:4]) + str(date[5:7]) + str(date[8:10])
-        print(today)
-        print(select_date)
         now_time = taiwan_now.hour
         select_time = 9
         if time == "afternoon":
