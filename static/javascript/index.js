@@ -1,13 +1,17 @@
+const loadingIcon = document.querySelector(".loading");
+const container = document.querySelector(".container");
 const categories = document.querySelector(".categories");
 const search = document.querySelector(".search");
 const searchBtn = document.querySelector(".search-btn");
 const noResult = document.querySelector(".no-result");
 const footer = document.querySelector(".footer");
+const loadingImg = document.querySelector(".loading");
 let pageLoading = false;
 
-window.onload = () => {
-  checkSigninStatus();
-  getData();
+window.onload = async () => {
+  await checkSigninStatus();
+  await getData();
+  removeLoading();
 };
 
 //初始畫面
@@ -77,41 +81,62 @@ function observe(page, keyword) {
 //圖文版面
 function addDataToDom(result, length) {
   for (let i = 0; i < length; i++) {
-    let tag_a = document.createElement("a");
+    const tag_a = document.createElement("a");
     tag_a.setAttribute("href", `/attraction/${result[i].id}`);
 
-    let picDiv = document.createElement("div");
+    const picDiv = document.createElement("div");
     picDiv.className = "pic";
 
-    let img = document.createElement("img");
-    img.setAttribute("src", `${result[i].images[0]}`);
+    const picBox = document.createElement("div");
+    picBox.className = "pic-box";
 
-    let attractionNameDiv = document.createElement("div");
+    const img = new Image();
+    img.src = `${result[i].images[0]}`;
+
+    const attractionNameDiv = document.createElement("div");
     attractionNameDiv.className = "attraction-name";
     attractionNameDiv.textContent = `${result[i].name}`;
 
-    let picTitleDiv = document.createElement("div");
+    picBox.appendChild(img);
+    picBox.appendChild(attractionNameDiv);
+
+    const picTitleDiv = document.createElement("div");
     picTitleDiv.className = "pic-title";
 
-    let mrtDiv = document.createElement("div");
+    const mrtDiv = document.createElement("div");
     mrtDiv.className = "mrt";
     mrtDiv.textContent = `${result[i].mrt}`;
 
-    let categoryDiv = document.createElement("div");
+    const categoryDiv = document.createElement("div");
     categoryDiv.className = "category";
     categoryDiv.textContent = `${result[i].category}`;
 
     picTitleDiv.appendChild(mrtDiv);
     picTitleDiv.appendChild(categoryDiv);
 
-    picDiv.appendChild(img);
-    picDiv.appendChild(attractionNameDiv);
+    picDiv.appendChild(picBox);
     picDiv.appendChild(picTitleDiv);
 
     tag_a.appendChild(picDiv);
 
     document.querySelector(".gallery").appendChild(tag_a);
   }
+}
+
+// 移除載入中圖示
+function removeLoading() {
+  const picBox = document.querySelectorAll(".pic-box");
+  let i = 0;
+  picBox.forEach((item) => {
+    const attractionImg = item.firstElementChild;
+    attractionImg.addEventListener("load", () => {
+      i += 1;
+      if (i == picBox.length) {
+        loadingIcon.classList.add("none");
+        container.classList.remove("none");
+      }
+    });
+  });
 }
 
 // 分類選單載入

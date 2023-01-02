@@ -144,3 +144,157 @@ class Members_Auth(Resource):
             "data":decoded_jwt
         })
         return response
+class Members_information(Resource):
+    # 修改會員註冊姓名
+    def patch(self):
+        JWT_cookies = request.cookies.get("token")
+        if JWT_cookies == None:
+            response = jsonify({
+                "error": True,
+                "message": "未登入系統，拒絕存取"
+            })
+            response.status_code = "403"
+            return response
+        
+        decoded_jwt = jwt.decode(JWT_cookies, secret_key, algorithms="HS256")
+        member_id = decoded_jwt["id"]
+        member_email = decoded_jwt["email"]
+
+        name = request.json["name"]  
+
+        if not valid_name(name):
+            response = jsonify({
+                "error": True,
+                "message": "姓名限制需為2~20個英數字"
+            })
+            response.status_code = "400"
+            return response
+
+        try:
+            connection = db_Connect.dbConnect.get_connection()
+            cursor = connection.cursor(dictionary=True)
+            cursor.execute("UPDATE members SET name = %s WHERE email = %s AND id = %s" , [name, member_email, member_id])
+            connection.commit()
+
+            JWT_data = {
+                "id": member_id,
+                "name": name,
+                "email": member_email
+            }
+            encoded_jwt = jwt.encode(JWT_data, secret_key, algorithm="HS256")
+            response = make_response(jsonify({
+                 "ok": True
+            }))
+            response.set_cookie(key = "token", value = encoded_jwt, max_age = 604800)
+            return response
+        except:
+            response = jsonify({
+                "error": True,
+                "message":"server error"
+            })
+            response.status_code = "500"
+            return response 
+        finally:
+            cursor.close()
+            connection.close()
+
+    # 修改會員註冊密碼
+    def put(self):
+        JWT_cookies = request.cookies.get("token")
+        if JWT_cookies == None:
+            response = jsonify({
+                "error": True,
+                "message": "未登入系統，拒絕存取"
+            })
+            response.status_code = "403"
+            return response
+        
+        decoded_jwt = jwt.decode(JWT_cookies, secret_key, algorithms="HS256")
+        member_id = decoded_jwt["id"]
+        member_email = decoded_jwt["email"]
+
+        password_old = request.json["password-old"]
+        password_new = request.json["password-new"]
+
+        try:
+            connection = db_Connect.dbConnect.get_connection()
+            cursor = connection.cursor(dictionary=True)
+            cursor.execute("SELECT password FROM members WHERE email = %s AND id = %s",[member_email, member_id])
+            result = cursor.fetchone()
+            
+            hash_password_check = check_password_hash(result["password"], password_old)
+            if hash_password_check == False:
+                response = jsonify({
+                    "error": True,
+                    "message": "原密碼輸入錯誤"
+                })
+                response.status_code = "400"
+                return response
+
+            if not valid_password(password_new):
+                response = jsonify({
+                    "error": True,
+                    "message": "密碼長度需為6-12個字元或數字"
+                })
+                response.status_code = "400"
+                return response
+
+            hash_password = generate_password_hash(password_new).decode('utf-8')
+        
+            cursor.execute("UPDATE members SET password = %s WHERE email = %s AND id = %s" , [hash_password, member_email, member_id])
+            connection.commit()
+
+            response = jsonify({
+                 "ok": True
+            })
+            return response
+
+        finally:
+            cursor.close()
+            connection.close()
+
+    # 取得會員資料+歷史訂單編號
+    def get(self):
+        JWT_cookies = request.cookies.get("token")
+        if JWT_cookies == None:
+            response = jsonify({
+                "error": True,
+                "message": "未登入系統，拒絕存取"
+            })
+            response.status_code = "403"
+            return response
+        
+        decoded_jwt = jwt.decode(JWT_cookies, secret_key, algorithms="HS256")
+        member_id = decoded_jwt["id"]
+        member_email = decoded_jwt["email"]
+        try:
+            connection = db_Connect.dbConnect.get_connection()
+            cursor = connection.cursor(dictionary=True)
+            cursor.execute("SELECT * FROM members WHERE id = %s AND email = %s" , [member_id, member_email])
+            member_data = cursor.fetchone()
+        
+            cursor.execute("SELECT DISTINCT(order_number) FROM order_list WHERE member_id = %s", [member_id])
+            order_data = cursor.fetchall()
+            order = []
+            for i in order_data:
+                order.append(i["order_number"])
+
+            response = jsonify({
+                    "data": {
+                        "id": member_data["id"],
+                        "name": member_data["name"],
+                        "email": member_data["email"],
+                        "order": order
+                    }
+            })
+            return response
+        except:
+            response = jsonify({
+                "error": True,
+                "message":"server error"
+            })
+            response.status_code = "500"
+            return response 
+        finally:
+            cursor.close()
+            connection.close()

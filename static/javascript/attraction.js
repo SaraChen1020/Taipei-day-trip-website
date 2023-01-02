@@ -44,15 +44,35 @@ async function getData() {
 
       const img = document.createElement("img");
       img.setAttribute("src", `${result.images[i]}`);
+      img.style.display = "none";
 
       slideDiv.appendChild(img);
       slidesPictures.appendChild(slideDiv);
 
       const dotDiv = document.createElement("div");
       dotDiv.className = "dot";
+      dotDiv.style.display = "none";
       dotDiv.setAttribute("onclick", `currentSlide(${i})`);
       dotPosition.appendChild(dotDiv);
     }
+
+    let i = 0;
+    const imgIDs = document.querySelectorAll(".slide");
+    const loadingImg = document.querySelector(".loading");
+    const dot = document.querySelectorAll(".dot");
+    imgIDs.forEach((item) => {
+      let imgID = item.firstElementChild;
+      imgID.addEventListener("load", () => {
+        i += 1;
+        if (imgIDs.length === i) {
+          loadingImg.classList.add("none");
+          imgIDs.forEach((item, index) => {
+            item.firstElementChild.style.display = "block";
+            dot[index].style.display = "block";
+          });
+        }
+      });
+    });
     showSlides(slideIndex);
   } catch (error) {
     console.log("error", error);

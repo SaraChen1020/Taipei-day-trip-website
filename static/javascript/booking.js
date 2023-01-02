@@ -15,6 +15,8 @@ const errorImage = document.querySelector(".error-image");
 const errorMessage = document.querySelector(".error-message");
 const normalMessage = document.querySelector(".normal-message");
 const closePop = document.querySelector(".close-pop");
+const loadingIcon = document.querySelector(".loading");
+const container = document.querySelector(".container");
 
 let sumOfPrice = 0;
 let primeNumber;
@@ -38,17 +40,26 @@ async function getData() {
   const data = await response.json();
   const result = data.data;
   if (result != null) {
-    loadDataToDom(result);
+    await loadDataToDom(result);
     information.classList.remove("none");
+    loadingIcon.classList.add("none");
+    container.classList.remove("none");
   } else {
-    noData();
+    await noData();
+    loadingIcon.classList.add("none");
+    container.classList.remove("none");
   }
 }
 
 // 待預定行程畫面呈現
-function loadDataToDom(result) {
+async function loadDataToDom(result) {
   const today = new Date();
-  const todayDate = Number(today.toLocaleDateString().replace(/\//g, ""));
+
+  const year = today.getFullYear();
+  let month = today.getMonth() + 1;
+  let date = today.getDate();
+  const todayDate =
+    year + (month < 10 ? "0" : "") + month + (date < 10 ? "0" : "") + date;
   const nowTime = Number(today.getHours());
 
   for (let i = 0; i < result.length; i++) {
@@ -57,6 +68,7 @@ function loadDataToDom(result) {
         ? "早上 9 點到下午 1 點"
         : "下午 2 點到晚上 6 點";
     const oderDate = Number(result[i].date.replace(/-/g, ""));
+
     let orderTime = result[i].time == "morning" ? 9 : 14;
 
     const sectionDiv = document.createElement("div");
@@ -104,10 +116,10 @@ function loadDataToDom(result) {
     bookingAddress.innerHTML = `<b>地點：</b><p>${result[i].attraction.address}</p>`;
     rightInformation.appendChild(bookingAddress);
 
-    if (oderDate < todayDate) {
+    if (oderDate < Number(todayDate)) {
       overdueNotice(rightInformation);
     }
-    if (oderDate == todayDate && nowTime >= orderTime) {
+    if (oderDate == Number(todayDate) && nowTime >= orderTime) {
       overdueNotice(rightInformation);
     }
 
@@ -143,7 +155,7 @@ function loadDataToDom(result) {
 }
 
 // 無待預訂的行程
-function noData() {
+async function noData() {
   const noSchedule = document.createElement("div");
   noSchedule.className = "no-schedule";
   noSchedule.textContent = "目前沒有任何待預訂的行程。";

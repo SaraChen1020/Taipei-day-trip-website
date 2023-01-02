@@ -11,6 +11,8 @@ const contactName = document.querySelector(".contact-name");
 const contactEmail = document.querySelector(".contact-email");
 const contactPhone = document.querySelector(".contact-phone");
 const line = document.querySelector(".line");
+const loadingIcon = document.querySelector(".loading");
+const container = document.querySelector(".container");
 
 window.onload = async () => {
   await checkSigninStatus();
@@ -29,16 +31,20 @@ async function getData() {
     const data = await response.json();
     const result = data.data;
     if (result != null) {
-      loadOrderToDom(result);
+      await loadOrderToDom(result);
+      loadingIcon.classList.add("none");
+      container.classList.remove("none");
     } else {
-      noOrder();
+      await noOrder();
+      loadingIcon.classList.add("none");
+      container.classList.remove("none");
     }
   } catch (error) {
     console.log("error", error);
   }
 }
 
-function loadOrderToDom(result) {
+async function loadOrderToDom(result) {
   const trips = result.trip;
   trips.forEach((item) => {
     let time =
@@ -110,7 +116,7 @@ function loadOrderToDom(result) {
   }
 }
 
-function noOrder() {
+async function noOrder() {
   orderForm.classList.add("none");
   line.classList.add("none");
   contactForm.classList.add("none");

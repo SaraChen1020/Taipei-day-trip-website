@@ -18,7 +18,12 @@
         <div class="frame-2">
           <div class="frame-1 schedule">預定行程</div>
           <div class="frame-1 sign none" onclick="signInOpen()">登入/註冊</div>
-          <div class="frame-1 signout none">登出系統</div>
+          <div class="frame-1 member-icon none">
+            <div class="member-list none">
+              <a href="/member"><div class="member-info-site">會員專區</div></a>
+              <div class="signout">登出系統</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -96,6 +101,7 @@
     <div class="white-area"></div>
 
     {% block content %}
+    <div class="loading"></div>
     <div class="vision">
       <div class="slogan">
         <div class="slogan-1">輕鬆享受台北一日悠閒</div>
@@ -115,12 +121,14 @@
       </div>
     </div>
     <div class="no-result"></div>
-    <div class="container">
+    <div class="container none">
       <div class="gallery">
         <!-- <a href="/attraction/1">
           <div class="pic">
-            <img src="圖片網址" />
-            <div class="attraction-name">平安鐘</div>
+            <div class="pic-box">
+              <img src="圖片網址" />
+              <div class="attraction-name">平安鐘</div>
+            </div>
             <div class="pic-title">
               <div class="mrt">忠孝復興</div>
               <div class="category">公共藝術</div>
@@ -129,7 +137,6 @@
         </a> -->
       </div>
       {% endblock %}
-
       <div class="footer">
         <div>COPYRIGHT © 2022 台北一日遊</div>
       </div>

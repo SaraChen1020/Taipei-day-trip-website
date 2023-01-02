@@ -2,6 +2,21 @@
   box-sizing: border-box;
 }
 
+.loading {
+  position: absolute;
+  background-color: #ffffff;
+  background-image: url("/static/images/loading.gif");
+  z-index: 9;
+  background-size: 200px;
+  background-repeat: no-repeat;
+  background-position: top;
+  width: 100%;
+  height: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -20%);
+}
+
 .container {
   display: grid;
   grid-template-columns: 1fr 1200px 1fr;
@@ -213,6 +228,11 @@ p {
   border-radius: 5px;
 }
 
+.submit-button:hover {
+  color: #000;
+  box-shadow: 1px 1px 9px #8c9cac;
+}
+
 .popup {
   position: fixed;
   background-color: #ffffff;
@@ -290,7 +310,8 @@ p {
   .schedule-section,
   .contact-form,
   .payment-form,
-  .confirm-form {
+  .confirm-form,
+  .no-schedule {
     margin-left: 5px;
     margin-right: 5px;
   }

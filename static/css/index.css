@@ -1,3 +1,19 @@
+.loading {
+  position: absolute;
+  background-color: #ffffff;
+  background-image: url(/static/images/loading.gif);
+  z-index: 9;
+  background-size: 200px;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+  height: 500px;
+  top: 300px;
+  bottom: 400px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .vision {
   display: flex;
   justify-content: center;
@@ -126,6 +142,7 @@
 }
 
 .container {
+  position: relative;
   display: grid;
   grid-template-columns: 1fr 1200px 1fr;
   grid-template-rows: auto 104px;
@@ -151,6 +168,11 @@
   border: 1px solid #e8e8e8;
   position: relative;
   z-index: 0;
+  overflow: hidden;
+}
+
+.pic-box {
+  overflow: hidden;
 }
 
 .pic img {
@@ -159,6 +181,15 @@
   border-radius: 5px;
   object-fit: cover; /*防止圖片變形*/
   display: block; /*移除圖片下方的留白*/
+  transition: all 0.5s;
+}
+
+.pic img:hover {
+  transform: scale(1.1);
+}
+
+.pic:hover {
+  box-shadow: 2px 2px 9px #aabbcc;
 }
 
 .attraction-name {
@@ -206,6 +237,10 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
+}
+
+.none {
+  display: none;
 }
 
 @media (max-width: 1200px) {
