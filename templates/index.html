@@ -41,6 +41,7 @@
           name="email"
           placeholder="輸入電子信箱"
           oninput="checkValid(this)"
+          value="test@test.com"
         />
         <input
           class="password"
@@ -49,13 +50,15 @@
           name="password"
           placeholder="輸入密碼"
           oninput="checkValid(this)"
+          value="123456"
         />
         <div class="rule-text none"></div>
         <button class="signin-button">登入帳戶</button>
       </label>
       <div class="status-message error none" id="signin-error">失敗訊息</div>
-      <div class="change-signup" onclick="signUpOpen()">
-        還沒有帳戶？點此註冊
+      <div class="change-signup">
+        還沒有帳戶？
+        <div onclick="signUpOpen()">點此註冊</div>
       </div>
     </div>
     <div class="signup none">
@@ -94,8 +97,9 @@
       </label>
       <div class="status-message success none">註冊成功！</div>
       <div class="status-message error none" id="signup-error">失敗訊息</div>
-      <div class="change-signin" onclick="signInOpen()">
-        已經有帳戶了？點此登入
+      <div class="change-signin">
+        已經有帳戶了？
+        <div onclick="signInOpen()">點此登入</div>
       </div>
     </div>
     <div class="white-area"></div>

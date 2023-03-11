@@ -225,6 +225,7 @@ a {
   background-repeat: no-repeat;
   background-position: right;
   background-origin: content-box;
+  font-family: "Noto Sans TC";
 }
 
 .name {
@@ -271,6 +272,11 @@ a {
   cursor: pointer;
 }
 
+.signin-button:hover,
+.signup-button:hover {
+  background: #2d6370;
+}
+
 .change-signup,
 .change-signin {
   display: flex;
@@ -280,8 +286,13 @@ a {
   line-height: 13px;
   margin: 10px 15px 15px 15px;
   color: #666666;
-  cursor: pointer;
   line-height: 13px;
+}
+
+.change-signup div:hover,
+.change-signin div:hover {
+  cursor: pointer;
+  color: blue;
 }
 
 .signup {

@@ -17,7 +17,11 @@ let slideIndex = 0;
 let path = location.pathname;
 
 const today = new Date();
-const todayDate = today.toLocaleDateString().replace(/\//g, "-");
+const year = today.getFullYear();
+const month = String(today.getMonth() + 1).padStart(2, "0");
+const day = String(today.getDate()).padStart(2, "0");
+const todayDate = `${year}-${month}-${day}`;
+console.log(todayDate);
 
 window.onload = () => {
   checkSigninStatus();
