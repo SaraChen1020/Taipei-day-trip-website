@@ -33,12 +33,12 @@ Taipei-day-trip is a website that allows you to search for famous attractions in
   - [Cloud Service](#Cloud-Service)
   - [Third-party Payment](#Third-party-Payment)
 - [Main features](#-Main-features)
-  - [Infinite Scroll](#Infinite-Scroll)
-  - [Search Attractions](#Search-Attractions)
-  - [Carousel Slider](#Carousel-Slider)
-  - [Third-party Payment (TapPay)](<#Third-party-Payment-(TapPay)>)
-  - [Form Validation](#Form-Validation)
-  - [Member Page](#Member-Page)
+  - [Infinite Scroll](#-Infinite-Scroll)
+  - [Search Attractions](#-Search-Attractions)
+  - [Carousel Slider](#-Carousel-Slider)
+  - [Third-party Payment (TapPay)](#-Third-party-Payment--TapPay-)
+  - [Form Validation](#-Form-Validation)
+  - [Member Page](#-Member-Page)
 - [Contact](#Contact)
 
 ## ✦ Technical Architecture
@@ -83,42 +83,42 @@ Taipei-day-trip is a website that allows you to search for famous attractions in
 
 ## ✦ Main features
 
-### Infinite Scroll
+### :bell: Infinite Scroll
 
 - Use the JavaScript **Intersection Observer API** to implement the **Infinite Scroll** effect.
 <p align="center">
 <img src="static/images/scroll.gif" width="500"/>
 </p>
 
-### Search Attractions
+### :bell: Search Attractions
 
 - You can search for attractions by categories or keywords.
 <p align="center">
 <img src="static/images/03_20230314-search.gif" width="500"/>
 </p>
 
-### Carousel Slider
+### :bell: Carousel Slider
 
 - Create a **Carousel Slider** for attraction pictures that allows easy viewing of the images.
 <p align="center">
 <img src="static/images/carousel2.gif" width="500"/>
 </p>
 
-### Third-party Payment (TapPay)
+### :bell: Third-party Payment (TapPay)
 
 - Connect to the **TapPay API**, authenticate the credit card and then proceed with the payment.
 <p align="center">
 <img src="static/images/payment.gif" width="500"/>
 </p>
 
-### Form Validation
+### :bell: Form Validation
 
 - Form validation is performed both in the front-end and back-end to ensure the accuracy of data format.
 <p align="center">
 <img src="static/images/form-valid.gif" width="500"/>
 </p>
 
-### Member Page
+### :bell: Member Page
 
 - In member page, you can revise your name and password.
 
