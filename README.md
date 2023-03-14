@@ -5,7 +5,7 @@ Taipei-day-trip is a website that allows you to search for famous attractions in
 ### :link: Website URL: http://35.175.100.203:3000/
 
 <p align="center">
-<img src="https://github.com/SaraChen1020/Taipei-day-trip-website/blob/main/static/images/intro.gif" width="500"/>
+<img src="static/images/intro2.gif" />
 </p>
 
 #### :woman: Test Account
@@ -87,7 +87,7 @@ Taipei-day-trip is a website that allows you to search for famous attractions in
 
 - Use the JavaScript **Intersection Observer API** to implement the **Infinite Scroll** effect.
 <p align="center">
-<img src="static/images/02_20230314-scroll.gif" width="500"/>
+<img src="static/images/scroll.gif" width="500"/>
 </p>
 
 ### Search Attractions
@@ -101,7 +101,7 @@ Taipei-day-trip is a website that allows you to search for famous attractions in
 
 - Create a **Carousel Slider** for attraction pictures that allows easy viewing of the images.
 <p align="center">
-<img src="static/images/carousel.gif" width="500"/>
+<img src="static/images/carousel2.gif" width="500"/>
 </p>
 
 ### Third-party Payment (TapPay)
