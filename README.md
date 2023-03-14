@@ -126,6 +126,11 @@ Taipei-day-trip is a website that allows you to search for famous attractions in
 <img src="static/images/member.gif" width="500"/>
 </p>
 
+- Also you can check your history orders.
+<p align="center">
+<img src="static/images/history-order.gif" width="500"/>
+</p>
+
 ## Contact
 
 - 🐣 Szu-An, Chen
