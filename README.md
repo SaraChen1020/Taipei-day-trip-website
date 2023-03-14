@@ -5,7 +5,7 @@ Taipei-day-trip is a website that allows you to search for famous attractions in
 ### :link: Website URL: http://35.175.100.203:3000/
 
 <p align="center">
-<img src="static/images/intro.gif" width="500"/>
+<img src="https://github.com/SaraChen1020/Taipei-day-trip-website/blob/main/static/images/intro.gif" width="500"/>
 </p>
 
 #### :woman: Test Account
