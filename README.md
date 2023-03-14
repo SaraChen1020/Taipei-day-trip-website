@@ -2,31 +2,61 @@
 
 Taipei-day-trip is a website that allows you to search for famous attractions in Taipei. You can view detailed introductions for each attraction and book guided tours to help you explore Taipei and enjoy a wonderful day.
 
-<p align="center">
-<img src="static/images/intro.gif" />
-</p>
-
 :link: Website URL: http://35.175.100.203:3000/
 
-<h4>Test Account<h4/>
+<p align="center">
+<img src="static/images/intro.gif" width="500"/>
+</p>
+
+#### Test Account
 
 |    -     |       -       |
 | :------: | :-----------: |
 | Account  | test@test.com |
 | Password |    123456     |
 
-<h4>Test Credit Card<h4/>
+#### Test Credit Card
 
-|      -      |        -         |
-| :---------: | :--------------: |
-| Card Number | 4242424242424242 |
-| Valid Date  |      01/24       |
-|     CCV     |       123        |
+|      -      |          -          |
+| :---------: | :-----------------: |
+| Card Number | 4242 4242 4242 4242 |
+| Valid Date  |        01/24        |
+|     CCV     |         123         |
 
-## Skills Structure
+## ✦ Technical Architecture
 
-## Front-End Technique
+## ✦ Front-end Technique
 
-## Back-End Technique
+- HTML/CSS/JavaScript
+- AJAX
+- Responsive Web Design(RWD)
+<p align="center">
+<img src="static/images/tdt-rwd.png" width="500"/>
+</p>
 
-## Main features
+## ✦ Back-end Technique
+
+#### Web Framework
+
+- **Python Flask**
+- **RESTful API**
+<p align="left">
+<img src="static/images/api.png" />
+</p>
+
+#### Database
+
+- **MySQL**
+<p align="left">
+<img src="static/images/mysql_database.png" />
+</p>
+
+#### Cloud Service
+
+- **AWS EC2 (Ubuntu)**
+
+#### Third-party Payment
+
+- **TapPay**
+
+## ✦ Main features
