@@ -33,12 +33,12 @@ Taipei-day-trip is a website that allows you to search for famous attractions in
   - [Cloud Service](#Cloud-Service)
   - [Third-party Payment](#Third-party-Payment)
 - [Main features](#-Main-features)
-  - [Infinite Scroll](#-Infinite-Scroll)
-  - [Search Attractions](#-Search-Attractions)
-  - [Carousel Slider](#-Carousel-Slider)
-  - [Third-party Payment (TapPay)](#-Third-party-Payment--TapPay-)
-  - [Form Validation](#-Form-Validation)
-  - [Member Page](#-Member-Page)
+  - [Infinite Scroll](#bell-Infinite-Scroll)
+  - [Search Attractions](#bell-Search-Attractions)
+  - [Carousel Slider](#bell-Carousel-Slider)
+  - [Third-party Payment (TapPay)](#bell-third-party-payment-tappay)
+  - [Form Validation](#bell-Form-Validation)
+  - [Member Page](#bell-Member-Page)
 - [Contact](#Contact)
 
 ## ✦ Technical Architecture
