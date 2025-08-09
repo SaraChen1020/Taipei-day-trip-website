@@ -1,3 +1,4 @@
+import os
 import json
 import mysql.connector
 
@@ -18,8 +19,14 @@ cursor.execute("CREATE TABLE IF NOT EXISTS attractions(id BIGINT PRIMARY KEY AUT
 cursor.close()
 connection.close()
 
-with open("C:/Users/WinX/Desktop/WeHelp/second-stage/taipei-day-trip/data/taipei-attractions.json", "r", encoding="utf-8") as data:
-    data = json.load(data)
+# 取得目前檔案 data.py 的資料夾路徑
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# 拼接 data 資料夾下的 taipei-attractions.json 路徑
+json_path = os.path.join(BASE_DIR, "taipei-attractions.json")
+
+with open(json_path, "r", encoding="utf-8") as data_file:
+    data = json.load(data_file)
     results = data["result"]["results"]
 n=1
 for i in results:
