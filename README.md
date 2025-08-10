@@ -20,7 +20,7 @@ Taipei-day-trip is a website that allows you to search for famous attractions in
 |      -      |        -         |
 | :---------: | :--------------: |
 | Card Number | 4242424242424242 |
-| Valid Date  |      01/24       |
+| Valid Date  |      01/26       |
 |     CCV     |       123        |
 
 ## Skills Structure
